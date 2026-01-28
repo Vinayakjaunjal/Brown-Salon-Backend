@@ -21,7 +21,13 @@ const errorHandler = require("./middleware/errorHandler");
 const app = express();
 
 // MIDDLEWARE
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
@@ -53,20 +59,4 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`🚀 Backend running on port ${PORT}`);
-});
-
-app.get("/test-mail", async (req, res) => {
-  try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: "vinayakjaunjal2003@gmail.com",
-      subject: "Test Mail",
-      text: "Brevo working!",
-    });
-
-    res.send("Email sent");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Failed");
-  }
 });
