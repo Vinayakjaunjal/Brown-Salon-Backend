@@ -1,16 +1,6 @@
 const BirthdayCustomer = require("../models/BirthdayCustomer");
 const Notification = require("../models/Notification");
-const nodemailer = require("nodemailer");
-
-// ================= MAIL CONFIG =================
-
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const transporter = require("../utils/mailer");
 
 // ================= LOGO =================
 

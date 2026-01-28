@@ -1,20 +1,12 @@
 const Appointment = require("../models/Appointment");
 const Notification = require("../models/Notification");
-const nodemailer = require("nodemailer");
+const transporter = require("../utils/mailer");
 
 const {
   customerPendingTemplate,
   adminNewAppointmentTemplate,
   statusUpdateTemplate,
 } = require("../utils/emailTemplates");
-
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 // ================= CREATE =================
 
