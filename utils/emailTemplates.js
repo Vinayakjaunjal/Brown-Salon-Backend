@@ -160,46 +160,33 @@ ${FOOTER}
 
 // ======================= BIRTHDAY EMAIL TEMPLATE ================================ //
 
-exports.birthdayTemplate = (data) => `
+exports.birthdayTemplate = (name) => `
 <!DOCTYPE html>
 <html>
 <body style="font-family:Arial;background:#f6f4f0;padding:30px;">
 
 <div style="max-width:650px;margin:auto;background:#fff;padding:25px;border-radius:10px;">
 
-  <!-- Logo Center -->
-  <div style="text-align:center;margin-bottom:20px;">
-    <img 
-      src="${LOGO_URL}" 
-      alt="Brown Hair Salon Logo"
-      style="width:60px;display:inline-block;"
-    />
-  </div>
+${HEADER}
 
-  <h3 style="text-align:center;">
-    🎉 Happy Birthday ${data.name}! 🎂
-  </h3>
-
-  <p>Hello <b>${data.name}</b>,</p>
+  <h2 style="text-align:center;color:#6b3f1d;">
+    🎉 Happy Birthday ${name}!
+  </h2>
 
   <p>
-    The entire team at <b>Brown Hair – The Unisex Salon</b> wishes you a very
-    Happy Birthday! ✨
-  </p>
-
-  <p>
-    May your day be filled with happiness, confidence, and great style 💇‍♂️💇‍♀️
+    Wishing you a day filled with joy, happiness and great style ✨
   </p>
 
   <div style="background:#f1ede7;padding:15px;border-radius:8px;">
     <p>
-      🎁 As a special birthday treat, we invite you to visit us soon and enjoy 
-      our premium salon services.
+      On your special day, the entire team at 
+      <b>Brown Hair – The Unisex Salon</b> 
+      wishes you success, confidence and beautiful moments 💇‍♂️💇‍♀️
     </p>
   </div>
 
-  <p>
-    We look forward to celebrating many more beautiful moments with you!
+  <p style="margin-top:20px;">
+    🎁 Visit us soon and enjoy your birthday glow!
   </p>
 
   <p>

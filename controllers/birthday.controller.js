@@ -87,51 +87,6 @@ exports.deleteCustomer = async (req, res) => {
   }
 };
 
-// ================= BIRTHDAY EMAIL TEMPLATE =================
-
-const birthdayTemplate = (name) => `
-<!DOCTYPE html>
-<html>
-<body style="font-family:Arial;background:#f6f4f0;padding:30px;">
-
-<div style="max-width:650px;margin:auto;background:#fff;padding:25px;border-radius:10px;">
-
-  <div style="text-align:center;margin-bottom:20px;">
-    <img src="${LOGO_URL}" style="width:80px;" />
-  </div>
-
-  <h2 style="text-align:center;color:#6b3f1d;">
-    🎉 Happy Birthday ${name}!
-  </h2>
-
-  <p>
-    Wishing you a day filled with joy, happiness and great style ✨
-  </p>
-
-  <div style="background:#f1ede7;padding:15px;border-radius:8px;">
-    <p>
-      On your special day, the entire team at 
-      <b>Brown Hair – The Unisex Salon</b> 
-      wishes you success, confidence and beautiful moments 💇‍♂️💇‍♀️
-    </p>
-  </div>
-
-  <p style="margin-top:20px;">
-    🎁 Visit us soon and enjoy your birthday glow!
-  </p>
-
-  <p>
-    Warm wishes,<br/>
-    <b>Team Brown Hair Salon</b>
-  </p>
-
-  ${FOOTER}
-
-</div>
-</body>
-</html>
-`;
-
 // ================= SEND BIRTHDAY WISH =================
 
 exports.sendWish = async (req, res) => {
