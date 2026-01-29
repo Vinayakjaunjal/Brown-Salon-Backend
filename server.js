@@ -23,7 +23,7 @@ const app = express();
 // MIDDLEWARE
 app.use(
   cors({
-    origin: "*",
+    origin: "*", // allow all (safe for now)
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
