@@ -35,7 +35,7 @@ exports.createAppointment = async (req, res) => {
 
     // ADMIN EMAIL
     await sendEmail({
-      to: appointment.email,
+      to: process.env.ADMIN_EMAIL,
       subject: "New Appointment Request | Action Required",
       html: adminNewAppointmentTemplate(appointment),
     });
