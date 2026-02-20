@@ -27,9 +27,14 @@ app.use(
       "https://brown-salon-frontend.vercel.app",
       "https://brownsalon.co.in",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
 );
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
