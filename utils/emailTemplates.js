@@ -140,21 +140,25 @@ We truly hope you had a wonderful experience with our service.
 </p>
 
 <p>
-Your satisfaction is our priority, and we look forward to welcoming you again soon.
-</p>
-`
-    : status === "cancelled"
-      ? `
-<p>
-Your appointment has been cancelled as per request or availability.
+Your feedback helps us grow and serve you better.
+We would love it if you could take a moment to share your experience.
 </p>
 
-<p>
-You may visit our website anytime to book a new appointment at your convenience.
-</p>
+<div style="text-align:center;margin:20px 0;">
+<a href="https://g.page/r/CTlJ6nV9k3IGEAE/review"
+style="background:#d4af37;
+color:#fff;
+padding:10px 20px;
+text-decoration:none;
+border-radius:6px;
+font-weight:bold;
+display:inline-block;">
+⭐ Leave Us a Review
+</a>
+</div>
 `
-      : status === "no-show"
-        ? `
+    : status === "no-show"
+      ? `
 <p>
 We noticed that you were unable to attend your scheduled appointment with us.
 </p>
@@ -168,7 +172,7 @@ You’re always welcome to book a new appointment at your preferred time.
 We look forward to serving you soon.
 </p>
 `
-        : ""
+      : ""
 }
 
 <p>
