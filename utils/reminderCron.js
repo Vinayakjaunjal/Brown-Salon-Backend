@@ -16,11 +16,27 @@ cron.schedule("*/5 * * * *", async () => {
   });
 
   appointments.forEach(async (a) => {
-    const appointmentTime = new Date(`${a.date}T${a.time}`);
+    const [time, modifier] = a.time.split(" ");
+
+    let [hours, minutes] = time.split(":");
+
+    if (modifier === "PM" && hours !== "12") {
+      hours = parseInt(hours, 10) + 12;
+    }
+    if (modifier === "AM" && hours === "12") {
+      hours = "00";
+    }
+
+    const appointmentTime = new Date(a.date);
+    appointmentTime.setHours(hours);
+    appointmentTime.setMinutes(minutes);
+    appointmentTime.setSeconds(0);
+    appointmentTime.setHours(appointmentTime.getHours() - 5);
+    appointmentTime.setMinutes(appointmentTime.getMinutes() - 30);
 
     const diff = (appointmentTime - now) / 60000;
 
-    if (diff > 25 && diff < 35 && !a.reminderSent) {
+    if (diff > 29 && diff < 31 && !a.reminderSent) {
       await sendEmail({
         to: a.email,
         subject: "Appointment Reminder",
