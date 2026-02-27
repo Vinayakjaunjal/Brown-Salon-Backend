@@ -127,17 +127,49 @@ ${HEADER}
 <p>📌 Status: <b>${status.toUpperCase()}</b></p>
 </div>
 
-<p>
 ${
   status === "completed"
-    ? "✅ Your appointment has been successfully completed. Thank you for choosing Brown Hair – The Unisex Salon. We hope you had a great experience!"
+    ? `
+<p>
+Thank you for visiting Brown Hair – The Unisex Salon today.
+</p>
+
+<p>
+We’re happy to inform you that your appointment has been successfully completed.
+We truly hope you had a wonderful experience with our service.
+</p>
+
+<p>
+Your satisfaction is our priority, and we look forward to welcoming you again soon.
+</p>
+`
     : status === "cancelled"
-      ? "❌ Your appointment has been cancelled as per request or availability. You may book a new appointment at your convenience anytime."
+      ? `
+<p>
+Your appointment has been cancelled as per request or availability.
+</p>
+
+<p>
+You may visit our website anytime to book a new appointment at your convenience.
+</p>
+`
       : status === "no-show"
-        ? "⚠️ We noticed that you were unable to attend your scheduled appointment. Feel free to rebook at your preferred time."
+        ? `
+<p>
+We noticed that you were unable to attend your scheduled appointment with us.
+</p>
+
+<p>
+We completely understand that plans can change.
+You’re always welcome to book a new appointment at your preferred time.
+</p>
+
+<p>
+We look forward to serving you soon.
+</p>
+`
         : ""
 }
-</p>
 
 <p>
 Warm regards,<br/>
