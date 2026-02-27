@@ -103,7 +103,7 @@ ${FOOTER}
 </html>
 `;
 
-// ========3️⃣ STATUS UPDATE (APPROVED / REJECTED) ======== //
+// ========3️⃣ STATUS UPDATE ======== //
 
 exports.statusUpdateTemplate = (data, status) => `
 <!DOCTYPE html>
@@ -115,7 +115,7 @@ exports.statusUpdateTemplate = (data, status) => `
 ${HEADER}
 
 <h3 style="text-align:center;">
-Appointment Status Update
+📢 Appointment Status Update
 </h3>
 
 <p>Hello <b>${data.name}</b>,</p>
@@ -124,20 +124,25 @@ Appointment Status Update
 <p>💇 Service: ${data.category}</p>
 <p>📅 Date: ${data.date}</p>
 <p>⏰ Time: ${data.time}</p>
-<p>📌 Status: ${status.toUpperCase()}</p>
+<p>📌 Status: <b>${status.toUpperCase()}</b></p>
 </div>
 
 <p>
 ${
-  status === "approved"
-    ? "✅ Your appointment is confirmed. Please arrive 10 minutes early."
-    : "❌ Unfortunately we couldn’t accommodate this slot. You may book again anytime."
+  status === "completed"
+    ? "✅ Your appointment has been successfully completed. Thank you for choosing Brown Hair – The Unisex Salon. We hope you had a great experience!"
+    : status === "cancelled"
+      ? "❌ Your appointment has been cancelled as per request or availability. You may book a new appointment at your convenience anytime."
+      : status === "no-show"
+        ? "⚠️ We noticed that you were unable to attend your scheduled appointment. Feel free to rebook at your preferred time."
+        : ""
 }
 </p>
 
 <p>
-Best regards,<br/>
-<b>Brown Hair – The Unisex Salon</b>
+Warm regards,<br/>
+<b>Brown Hair – The Unisex Salon</b><br/>
+Nagpur
 </p>
 
 ${FOOTER}
