@@ -25,9 +25,9 @@ You received this email because you booked an appointment with us.
 </p>
 `;
 
-// ======= 1️⃣ CUSTOMER - PENDING ======== //
+// ========2️⃣ CUSTOMER CONFIRMED EMAIL ========= //
 
-exports.customerPendingTemplate = (data) => `
+exports.customerConfirmedTemplate = (data) => `
 <!DOCTYPE html>
 <html>
 <body style="font-family:Arial;background:#f6f4f0;padding:30px;">
@@ -37,25 +37,24 @@ exports.customerPendingTemplate = (data) => `
 ${HEADER}
 
 <h3 style="text-align:center;">
-✨ Appointment Request Received!
+🎉 Appointment Confirmed!
 </h3>
 
 <p>Hello <b>${data.name}</b>,</p>
 
 <p>
-Thank you for booking an appointment with Brown Hair – The Unisex Salon ✨  
-We have received your appointment request and it is currently under review.
+Your appointment with Brown Hair – The Unisex Salon has been successfully confirmed.
 </p>
 
 <div style="background:#f1ede7;padding:15px;border-radius:8px;">
 <p>💇 Service: ${data.category}</p>
-<p>📅 Preferred Date: ${data.date}</p>
-<p>⏰ Preferred Time: ${data.time}</p>
-<p>📌 Status: ⏳ Pending Approval</p>
+<p>📅 Date: ${data.date}</p>
+<p>⏰ Time: ${data.time}</p>
+<p>📌 Status: ✅ Confirmed</p>
 </div>
 
 <p>
-Our team will confirm or update your booking shortly.
+We look forward to serving you. Please arrive 10 minutes before your appointment.
 </p>
 
 <p>
@@ -81,7 +80,7 @@ exports.adminNewAppointmentTemplate = (data) => `
 
 ${HEADER}
 
-<h3 style="text-align:center;">📅 New Appointment Request</h3>
+<h3 style="text-align:center;">📅 New Appointment Booked</h3>
 
 <div style="background:#f2f2f2;padding:15px;border-radius:8px;">
 <p>👤 Name: ${data.name}</p>
@@ -90,11 +89,11 @@ ${HEADER}
 <p>💇 Service: ${data.category}</p>
 <p>📅 Date: ${data.date}</p>
 <p>⏰ Time: ${data.time}</p>
-<p>📌 Status: Pending</p>
+<p>📌 Status: ✅ Confirmed</p>
 </div>
 
 <p>
-Please login to admin panel to approve or reject this appointment.
+A new appointment has been successfully booked.
 </p>
 
 ${FOOTER}

@@ -8,42 +8,74 @@ const {
   statusUpdateTemplate,
 } = require("../utils/emailTemplates");
 
+const Slot = require("../models/Slot");
+
 // ================= CREATE =================
 
 exports.createAppointment = async (req, res) => {
   try {
+    const { date, time } = req.body;
+
+    // 🔐 ATOMIC SLOT LOCK
+    const slot = await Slot.findOneAndUpdate(
+      {
+        date,
+        time,
+        status: "available",
+      },
+      {
+        status: "booked",
+      },
+      {
+        new: true,
+      },
+    );
+
+    // IF SLOT NOT AVAILABLE
+    if (!slot) {
+      return res.status(400).json({
+        message: "Slot already booked",
+      });
+    }
+
+    // CREATE APPOINTMENT
     const appointment = new Appointment({
       ...req.body,
-      status: "pending",
+      status: "confirmed",
     });
 
     await appointment.save();
 
-    await Notification.create({
-      title: "New Appointment",
-      message: `${appointment.name} booked for ${appointment.date}`,
-      type: "appointment",
-      link: "/admin/appointments",
-    });
-
-    // CUSTOMER EMAIL
+    // EMAIL CUSTOMER
     await sendEmail({
       to: appointment.email,
-      subject: "Appointment Request Received | Brown Hair Salon",
-      html: customerPendingTemplate(appointment),
+      subject: "Appointment Confirmed | Brown Hair Salon",
+      html: customerConfirmedTemplate(appointment),
     });
 
     // ADMIN EMAIL
     await sendEmail({
       to: process.env.ADMIN_EMAIL,
-      subject: "New Appointment Request | Action Required",
+      subject: "New Appointment Booked | Brown Hair Salon",
       html: adminNewAppointmentTemplate(appointment),
     });
 
-    res.json({ success: true });
+    await Notification.create({
+      title: "New Booking",
+      message: `${appointment.name} booked ${appointment.time} on ${appointment.date}`,
+      type: "appointment",
+      link: "/admin/appointments",
+    });
+
+    res.json({
+      success: true,
+      message: "Appointment Confirmed",
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Error saving appointment" });
+    res.status(500).json({
+      message: "Booking failed",
+    });
   }
 };
 

@@ -5,9 +5,12 @@ const SlotSchema = new mongoose.Schema({
   time: String,
   status: {
     type: String,
-    enum: ["available", "booked"],
+    enum: ["available", "booked", "blocked"],
     default: "available",
   },
 });
+
+// UNIQUE SLOT PER DATE + TIME
+SlotSchema.index({ date: 1, time: 1 }, { unique: true });
 
 module.exports = mongoose.model("Slot", SlotSchema);
