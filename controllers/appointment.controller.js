@@ -3,7 +3,7 @@ const Notification = require("../models/Notification");
 const sendEmail = require("../utils/sendEmail");
 
 const {
-  customerPendingTemplate,
+  customerConfirmedTemplate,
   adminNewAppointmentTemplate,
   statusUpdateTemplate,
 } = require("../utils/emailTemplates");
