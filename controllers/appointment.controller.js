@@ -97,6 +97,13 @@ exports.updateAppointmentStatus = async (req, res) => {
     appointment.status = status;
     await appointment.save();
 
+    if (status === "cancelled") {
+      await Slot.deleteOne({
+        date: appointment.date,
+        time: appointment.time,
+      });
+    }
+
     await sendEmail({
       to: appointment.email,
       subject: "Appointment Status Update | Brown Hair Salon",
