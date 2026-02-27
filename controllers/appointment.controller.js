@@ -16,27 +16,21 @@ exports.createAppointment = async (req, res) => {
   try {
     const { date, time } = req.body;
 
-    // 🔐 ATOMIC SLOT LOCK
-    const slot = await Slot.findOneAndUpdate(
-      {
-        date,
-        time,
-        status: "available",
-      },
-      {
-        status: "booked",
-      },
-      {
-        new: true,
-      },
-    );
+    // CHECK IF SLOT BLOCKED OR BOOKED
+    const exists = await Slot.findOne({ date, time });
 
-    // IF SLOT NOT AVAILABLE
-    if (!slot) {
+    if (exists) {
       return res.status(400).json({
-        message: "Slot already booked",
+        message: "Slot not available",
       });
     }
+
+    // LOCK SLOT
+    await Slot.create({
+      date,
+      time,
+      status: "booked",
+    });
 
     // CREATE APPOINTMENT
     const appointment = new Appointment({
@@ -46,17 +40,17 @@ exports.createAppointment = async (req, res) => {
 
     await appointment.save();
 
-    // EMAIL CUSTOMER
+    // CUSTOMER EMAIL
     await sendEmail({
       to: appointment.email,
-      subject: "Appointment Confirmed | Brown Hair Salon",
+      subject: "Appointment Confirmed",
       html: customerConfirmedTemplate(appointment),
     });
 
     // ADMIN EMAIL
     await sendEmail({
       to: process.env.ADMIN_EMAIL,
-      subject: "New Appointment Booked | Brown Hair Salon",
+      subject: "New Appointment Booked",
       html: adminNewAppointmentTemplate(appointment),
     });
 
