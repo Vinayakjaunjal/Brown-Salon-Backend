@@ -188,6 +188,49 @@ ${FOOTER}
 </html>
 `;
 
+// ========3️⃣ AUTO REMINDER APPOINTMENT ======== //
+exports.reminderTemplate = (data) => `
+<!DOCTYPE html>
+<html>
+<body style="font-family:Arial;background:#f6f4f0;padding:30px;">
+
+<div style="max-width:650px;margin:auto;background:#fff;padding:25px;border-radius:10px;">
+
+${HEADER}
+
+<h3 style="text-align:center;">
+⏰ Appointment Reminder
+</h3>
+
+<p>Hello <b>${data.name}</b>,</p>
+
+<p>
+This is a friendly reminder that your appointment with Brown Hair – The Unisex Salon is scheduled in the next 30 minutes.
+</p>
+
+<div style="background:#f1ede7;padding:15px;border-radius:8px;">
+<p>💇 Service: ${data.category}</p>
+<p>📅 Date: ${data.date}</p>
+<p>⏰ Time: ${data.time}</p>
+</div>
+
+<p>
+Please ensure you arrive on time. We look forward to serving you.
+</p>
+
+<p>
+Warm regards,<br/>
+<b>Brown Hair – The Unisex Salon</b><br/>
+Nagpur
+</p>
+
+${FOOTER}
+
+</div>
+</body>
+</html>
+`;
+
 // ======== BIRTHDAY EMAIL TEMPLATE ========//
 
 exports.birthdayTemplate = ({ name }) => `
