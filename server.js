@@ -15,6 +15,7 @@ const serviceRoutes = require("./routes/service.routes");
 const galleryRoutes = require("./routes/gallery.routes");
 const reviewRoutes = require("./routes/review.routes");
 const notificationRoutes = require("./routes/notification.routes");
+const festivalRoutes = require("./routes/festival.routes");
 
 // ERROR HANDLER (optional but recommended)
 const errorHandler = require("./middleware/errorHandler");
@@ -40,6 +41,7 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/festivals", festivalRoutes);
 
 // TEST
 app.get("/", (req, res) => {
