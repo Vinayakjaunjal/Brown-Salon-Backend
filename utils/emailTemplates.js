@@ -157,8 +157,18 @@ display:inline-block;">
 </a>
 </div>
 `
-    : status === "no-show"
+    : status === "cancelled"
       ? `
+<p>
+Your appointment has been cancelled as per request or availability.
+</p>
+
+<p>
+You may visit our website anytime to book a new appointment at your convenience.
+</p>
+`
+      : status === "no-show"
+        ? `
 <p>
 We noticed that you were unable to attend your scheduled appointment with us.
 </p>
@@ -172,7 +182,7 @@ You’re always welcome to book a new appointment at your preferred time.
 We look forward to serving you soon.
 </p>
 `
-      : ""
+        : ""
 }
 
 <p>
