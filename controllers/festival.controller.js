@@ -26,35 +26,74 @@ exports.deleteFestival = async (req, res) => {
 
 // ================= SEND WISH =================
 
+// ================= SEND FESTIVAL WISH =================
+
 exports.sendFestivalWish = async (req, res) => {
-  const fest = await Festival.findById(req.params.id);
+  try {
+    const fest = await Festival.findById(req.params.id);
 
-  // UNIQUE CUSTOMER EMAIL LIST
-  const customers = await Customer.find({
-    email: { $ne: null },
-  });
+    if (!fest) {
+      return res.status(404).json({
+        message: "Festival not found",
+      });
+    }
 
-  const emails = customers.map((c) => c.email);
+    // ================= UNIQUE CUSTOMER EMAILS =================
 
-  // EMAIL TEMPLATE
-  const html = `
-<h2>${fest.name} Wishes from Brown Hair Salon 🎉</h2>
-<p>${fest.message}</p>
-<br/>
-<p>We look forward to serving you again 💇</p>
-<b>Brown Hair The Unisex Salon</b>
-`;
+    const customers = await Customer.find({
+      email: { $ne: null },
+    });
 
-  // FAST BULK SEND
-  await Promise.all(
-    emails.map((email) =>
-      sendEmail({
-        to: email,
-        subject: fest.subject,
-        html,
-      }),
-    ),
-  );
+    const emails = [
+      ...new Set(customers.map((c) => c.email.toLowerCase().trim())),
+    ];
 
-  res.json({ success: true });
+    console.log("Total customers:", emails.length);
+
+    // ================= EMAIL TEMPLATE =================
+
+    const html = `
+    <h2>${fest.name} Wishes from Brown Hair Salon 🎉</h2>
+    <p>${fest.message}</p>
+    <br/>
+    <p>We look forward to serving you again 💇</p>
+    <b>Brown Hair The Unisex Salon</b>
+    `;
+
+    // ================= THROTTLED SEND =================
+
+    let sent = 0;
+    let failed = 0;
+
+    for (let email of emails) {
+      try {
+        await sendEmail({
+          to: email,
+          subject: fest.subject,
+          html,
+        });
+
+        sent++;
+
+        // SMTP safe delay (IMPORTANT)
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      } catch (err) {
+        console.log("Failed:", email);
+        failed++;
+      }
+    }
+
+    console.log("Sent:", sent);
+    console.log("Failed:", failed);
+
+    res.json({
+      success: true,
+      message: `Festival wish sent to ${sent} customers`,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Festival wish failed",
+    });
+  }
 };
