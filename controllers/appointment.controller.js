@@ -43,6 +43,8 @@ exports.createAppointment = async (req, res) => {
 
     // ================= CUSTOMER AUTO SAVE =================
 
+    // ================= CUSTOMER AUTO SAVE =================
+
     const existingCustomer = await Customer.findOne({
       email: appointment.email,
     });
@@ -50,6 +52,7 @@ exports.createAppointment = async (req, res) => {
     if (existingCustomer) {
       existingCustomer.visits += 1;
       existingCustomer.lastVisit = appointment.date;
+
       await existingCustomer.save();
     } else {
       await Customer.create({
