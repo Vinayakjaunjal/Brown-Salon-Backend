@@ -1,13 +1,16 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
 
 const {
-  createFestival,
   getFestivals,
-  sendWish,
+  addFestival,
+  deleteFestival,
+  sendFestivalWish,
 } = require("../controllers/festival.controller");
 
-router.post("/", createFestival);
 router.get("/", getFestivals);
-router.post("/send/:id", sendWish);
+router.post("/", addFestival);
+router.delete("/:id", deleteFestival);
+router.post("/send/:id", sendFestivalWish);
 
 module.exports = router;
