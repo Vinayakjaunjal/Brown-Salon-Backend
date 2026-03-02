@@ -1,6 +1,7 @@
 const Appointment = require("../models/Appointment");
 const Notification = require("../models/Notification");
 const sendEmail = require("../utils/sendEmail");
+const Customer = require("../models/Customer");
 
 const {
   customerConfirmedTemplate,
@@ -16,7 +17,7 @@ exports.createAppointment = async (req, res) => {
   try {
     const { date, time } = req.body;
 
-    // CHECK IF SLOT BLOCKED OR BOOKED
+    // SLOT CHECK
     const exists = await Slot.findOne({ date, time });
 
     if (exists) {
@@ -25,20 +26,40 @@ exports.createAppointment = async (req, res) => {
       });
     }
 
-    // LOCK SLOT
+    // SLOT LOCK
     await Slot.create({
       date,
       time,
       status: "booked",
     });
 
-    // CREATE APPOINTMENT
+    // APPOINTMENT SAVE
     const appointment = new Appointment({
       ...req.body,
       status: "confirmed",
     });
 
     await appointment.save();
+
+    // ================= CUSTOMER AUTO SAVE =================
+
+    const existingCustomer = await Customer.findOne({
+      email: appointment.email,
+    });
+
+    if (existingCustomer) {
+      existingCustomer.visits += 1;
+      existingCustomer.lastVisit = appointment.date;
+      await existingCustomer.save();
+    } else {
+      await Customer.create({
+        name: appointment.name,
+        email: appointment.email,
+        phone: appointment.phone,
+        visits: 1,
+        lastVisit: appointment.date,
+      });
+    }
 
     // CUSTOMER EMAIL
     await sendEmail({

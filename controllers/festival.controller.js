@@ -1,6 +1,6 @@
 const Festival = require("../models/Festival");
-const Appointment = require("../models/Appointment");
 const sendEmail = require("../utils/sendEmail");
+const Customer = require("../models/Customer");
 
 // ================= GET =================
 
@@ -29,8 +29,10 @@ exports.deleteFestival = async (req, res) => {
 exports.sendFestivalWish = async (req, res) => {
   const fest = await Festival.findById(req.params.id);
 
-  // GET ALL CUSTOMER EMAILS
-  const customers = await Appointment.find({ status: "completed" });
+  // UNIQUE CUSTOMER EMAIL LIST
+  const customers = await Customer.find({
+    email: { $ne: null },
+  });
 
   const emails = customers.map((c) => c.email);
 
@@ -39,18 +41,20 @@ exports.sendFestivalWish = async (req, res) => {
 <h2>${fest.name} Wishes from Brown Hair Salon 🎉</h2>
 <p>${fest.message}</p>
 <br/>
-<p>Visit Us Again 💇</p>
+<p>We look forward to serving you again 💇</p>
 <b>Brown Hair The Unisex Salon</b>
 `;
 
-  // SEND TO ALL
-  for (let email of emails) {
-    await sendEmail({
-      to: email,
-      subject: fest.subject,
-      html,
-    });
-  }
+  // FAST BULK SEND
+  await Promise.all(
+    emails.map((email) =>
+      sendEmail({
+        to: email,
+        subject: fest.subject,
+        html,
+      }),
+    ),
+  );
 
   res.json({ success: true });
 };
