@@ -1,26 +1,35 @@
 const Service = require("../models/Service");
+const cloudinary = require("../utils/cloudinary");
 
 exports.getServices = async (req, res) => {
   const services = await Service.find();
   res.json(services);
 };
 
+const Service = require("../models/Service");
+const cloudinary = require("../utils/cloudinary");
+
 exports.addService = async (req, res) => {
   try {
-    const service = new Service({
+    let imageUrl = "";
+
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageUrl = result.secure_url;
+    }
+
+    const service = await Service.create({
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: req.file ? req.file.originalname : "",
+      image: imageUrl,
     });
 
-    await service.save();
-
-    res.json({ success: true });
+    res.json(service);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json(err.message);
   }
 };
 
