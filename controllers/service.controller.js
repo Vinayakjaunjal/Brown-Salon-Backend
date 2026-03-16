@@ -1,16 +1,38 @@
 const Service = require("../models/Service");
 
 exports.getServices = async (req, res) => {
-  res.json(await Service.find());
+  const services = await Service.find();
+  res.json(services);
 };
 
 exports.addService = async (req, res) => {
-  await Service.create(req.body);
-  res.json({ success: true });
+  const image = req.file ? req.file.path : "";
+
+  const service = await Service.create({
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    image,
+  });
+
+  res.json(service);
 };
 
 exports.updateService = async (req, res) => {
-  await Service.findByIdAndUpdate(req.params.id, req.body);
+  const updateData = {
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+  };
+
+  if (req.file) {
+    updateData.image = req.file.path;
+  }
+
+  await Service.findByIdAndUpdate(req.params.id, updateData);
+
   res.json({ success: true });
 };
 
