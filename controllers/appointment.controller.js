@@ -43,8 +43,6 @@ exports.createAppointment = async (req, res) => {
 
     // ================= CUSTOMER AUTO SAVE =================
 
-    // ================= CUSTOMER AUTO SAVE =================
-
     const existingCustomer = await Customer.findOne({
       email: appointment.email,
     });
