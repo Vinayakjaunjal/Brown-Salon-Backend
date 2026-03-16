@@ -6,17 +6,22 @@ exports.getServices = async (req, res) => {
 };
 
 exports.addService = async (req, res) => {
-  const image = req.file ? req.file.path : "";
+  try {
+    const service = new Service({
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      image: req.file ? req.file.originalname : "",
+    });
 
-  const service = await Service.create({
-    title: req.body.title,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    image,
-  });
+    await service.save();
 
-  res.json(service);
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
 exports.updateService = async (req, res) => {
@@ -28,7 +33,7 @@ exports.updateService = async (req, res) => {
   };
 
   if (req.file) {
-    updateData.image = req.file.path;
+    updateData.image = req.file.originalname;
   }
 
   await Service.findByIdAndUpdate(req.params.id, updateData);
