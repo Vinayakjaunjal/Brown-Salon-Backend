@@ -6,9 +6,6 @@ exports.getServices = async (req, res) => {
   res.json(services);
 };
 
-const Service = require("../models/Service");
-const cloudinary = require("../utils/cloudinary");
-
 exports.addService = async (req, res) => {
   try {
     let imageUrl = "";
