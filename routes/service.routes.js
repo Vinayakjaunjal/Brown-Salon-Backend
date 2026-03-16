@@ -10,11 +10,8 @@ const {
 } = require("../controllers/service.controller");
 
 router.get("/", getServices);
-
 router.post("/", upload.single("image"), addService);
-
 router.put("/:id", upload.single("image"), updateService);
-
 router.delete("/:id", deleteService);
 
 module.exports = router;

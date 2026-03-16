@@ -1,24 +1,37 @@
 const Service = require("../models/Service");
 
 exports.getServices = async (req, res) => {
-  const services = await Service.find();
-  res.json(services);
+  try {
+    const services = await Service.find();
+    res.json(services);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
 };
 
 exports.addService = async (req, res) => {
   try {
-    const service = await Service.create({
+    const service = new Service({
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: imageUrl,
+      image: req.file ? req.file.path : "",
     });
 
-    res.json(service);
+    await service.save();
+
+    res.json({
+      success: true,
+      data: service,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json(err.message);
+    console.error("ADD SERVICE ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
 };
 
@@ -39,11 +52,16 @@ exports.updateService = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    res.status(500).json(err.message);
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
 exports.deleteService = async (req, res) => {
-  await Service.findByIdAndDelete(req.params.id);
-  res.json({ success: true });
+  try {
+    await Service.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
 };
