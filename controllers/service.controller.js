@@ -12,22 +12,20 @@ exports.getServices = async (req, res) => {
 
 exports.addService = async (req, res) => {
   try {
-    const service = new Service({
+    const service = await Service.create({
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: req.file ? req.file.path : "",
+      image: "",
     });
-
-    await service.save();
 
     res.json({
       success: true,
       data: service,
     });
   } catch (err) {
-    console.error("ADD SERVICE ERROR:", err);
+    console.error(err);
     res.status(500).json({
       success: false,
       message: err.message,
