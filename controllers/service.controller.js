@@ -7,12 +7,6 @@ exports.getServices = async (req, res) => {
 
 exports.addService = async (req, res) => {
   try {
-    let imageUrl = "";
-
-    if (req.file) {
-      imageUrl = req.file.path; // Cloudinary URL automatically
-    }
-
     const service = await Service.create({
       title: req.body.title,
       description: req.body.description,
