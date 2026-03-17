@@ -16,6 +16,7 @@ const reviewRoutes = require("./routes/review.routes");
 const notificationRoutes = require("./routes/notification.routes");
 const festivalRoutes = require("./routes/festival.routes");
 const bookingRoutes = require("./routes/booking.routes");
+const authRoutes = require("./routes/auth.routes");
 
 const errorHandler = require("./middleware/errorHandler");
 
@@ -36,6 +37,7 @@ app.use("/api/gallery", galleryRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/festivals", festivalRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
