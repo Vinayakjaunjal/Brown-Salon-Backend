@@ -1,11 +1,5 @@
+require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
-
-// DEBUG (temporary – baad me hata dena)
-console.log("ENV CHECK:", {
-  cloud: process.env.CLOUDINARY_CLOUD_NAME,
-  key: process.env.CLOUDINARY_API_KEY,
-  secret: process.env.CLOUDINARY_API_SECRET ? "FOUND" : "MISSING",
-});
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
