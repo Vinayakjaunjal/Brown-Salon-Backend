@@ -12,13 +12,13 @@ exports.getServices = async (req, res) => {
 
 exports.addService = async (req, res) => {
   try {
-    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
     const service = await Service.create({
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: req.file ? req.file.path : "",
+      image: req.file ? req.file.path || req.file.secure_url : "",
     });
 
     res.json({
