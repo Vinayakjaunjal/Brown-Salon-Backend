@@ -28,7 +28,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/appointments", appointmentRoutes);
-app.use("./api/bookings", bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
 app.use("/api/slots", slotRoutes);
 app.use("/api/birthdays", birthdayRoutes);
 app.use("/api/services", serviceRoutes);
