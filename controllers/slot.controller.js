@@ -55,9 +55,14 @@ exports.getAvailableSlots = async (req, res) => {
     "10:00 PM",
   ];
 
-  const blockedOrBooked = await Slot.find({ date });
+  const blockedOrBooked = await Slot.find({
+    date,
+    status: { $in: ["blocked", "booked"] },
+  });
 
   const blockedTimes = blockedOrBooked.map((s) => s.time);
+
+  console.log("Blocked Times:", blockedTimes); // debug
 
   const availableSlots = defaultSlots.filter(
     (slot) => !blockedTimes.includes(slot),
