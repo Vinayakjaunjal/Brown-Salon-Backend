@@ -15,6 +15,7 @@ const galleryRoutes = require("./routes/gallery.routes");
 const reviewRoutes = require("./routes/review.routes");
 const notificationRoutes = require("./routes/notification.routes");
 const festivalRoutes = require("./routes/festival.routes");
+const bookingRoutes = require("./routes/booking.routes");
 
 const errorHandler = require("./middleware/errorHandler");
 
@@ -27,6 +28,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/appointments", appointmentRoutes);
+app.use("./api/bookings", bookingRoutes);
 app.use("/api/slots", slotRoutes);
 app.use("/api/birthdays", birthdayRoutes);
 app.use("/api/services", serviceRoutes);
