@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const auth = require("../middleware/auth");
-
-router.get("/profile", auth, (req, res) => {
+router.get("/profile", (req, res) => {
   res.json({
     success: true,
-    data: req.user,
+    data: {
+      name: "Vinayak Jaunjal",
+      email: "vinayak@test.com",
+      phone: "8208027615",
+    },
   });
 });
 
