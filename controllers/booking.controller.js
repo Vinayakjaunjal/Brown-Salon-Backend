@@ -1,12 +1,14 @@
 const Booking = require("../models/Booking");
 
 exports.createBooking = async (req, res) => {
+  console.log("CREATING BOOKING:", req.body);
   try {
     const booking = await Booking.create({
       serviceId: req.body.serviceId,
+      serviceName: req.body.serviceName,
       date: req.body.date,
       time: req.body.time,
-      totalAmount: req.body.totalAmount,
+      totalAmount: Number(req.body.totalAmount) || 0,
       email: req.body.email,
       paymentMethod: req.body.paymentMethod,
       userId: req.body.userId,
