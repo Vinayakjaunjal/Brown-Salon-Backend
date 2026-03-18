@@ -33,7 +33,9 @@ exports.getBookings = async (req, res) => {
       return res.status(400).json({ message: "userId required" });
     }
 
-    const bookings = await Booking.find({ userId }).sort({ createdAt: -1 });
+    const bookings = await Booking.find({ userId })
+      .populate("serviceId")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
