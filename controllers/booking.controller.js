@@ -37,7 +37,7 @@ exports.getBookings = async (req, res) => {
 
     res.json({
       success: true,
-      data: bookings,
+      data: bookings || [],
     });
   } catch (err) {
     console.log(err);
