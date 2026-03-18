@@ -17,7 +17,6 @@ const notificationRoutes = require("./routes/notification.routes");
 const festivalRoutes = require("./routes/festival.routes");
 const bookingRoutes = require("./routes/booking.routes");
 const authRoutes = require("./routes/auth.routes");
-const userRoutes = require("./routes/user.routes");
 
 const errorHandler = require("./middleware/errorHandler");
 
