@@ -8,8 +8,8 @@ const BookingSchema = new mongoose.Schema({
   totalAmount: Number,
   email: String,
   paymentMethod: String,
-  userId: String,
   status: { type: String, default: "pending" },
+  userId: String,
 });
 
 module.exports = mongoose.model("Booking", BookingSchema);
