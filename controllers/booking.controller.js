@@ -48,3 +48,36 @@ exports.getBookings = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      data: bookings,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.updateBookingStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const updated = await Booking.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true },
+    );
+
+    res.json({
+      success: true,
+      data: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
