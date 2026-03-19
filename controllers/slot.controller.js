@@ -1,10 +1,22 @@
 const Slot = require("../models/Slot");
+const Booking = require("../models/Booking");
 
 exports.getSlots = async (req, res) => {
-  const { date } = req.query;
-  if (!date) return res.json([]);
-  const slots = await Slot.find({ date });
-  res.json(slots);
+  try {
+    const { date } = req.query;
+
+    const bookings = await Booking.find({ date });
+
+    const bookedSlots = bookings.map((b) => ({
+      time: b.time,
+      status: "booked",
+    }));
+
+    res.json(bookedSlots);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
 };
 
 exports.saveSlots = async (req, res) => {
