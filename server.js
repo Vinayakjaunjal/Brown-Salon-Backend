@@ -1,13 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-require("./utils/reminderCron");
 
 const connectDB = require("./db");
 
 // ROUTES
 const adminRoutes = require("./routes/admin.routes");
-const appointmentRoutes = require("./routes/appointment.routes");
 const slotRoutes = require("./routes/slot.routes");
 const birthdayRoutes = require("./routes/birthday.routes");
 const serviceRoutes = require("./routes/service.routes");
@@ -28,7 +26,6 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/admin", adminRoutes);
-app.use("/api/appointments", appointmentRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/slots", slotRoutes);
 app.use("/api/birthdays", birthdayRoutes);
