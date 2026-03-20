@@ -65,6 +65,8 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
+const Slot = require("../models/Slot");
+
 exports.updateBookingStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -79,14 +81,19 @@ exports.updateBookingStatus = async (req, res) => {
     booking.status = status;
     await booking.save();
 
-    // ✅ SLOT UNBLOCK LOGIC
-    if (status === "cancelled" || status === "no-show") {
-      await Slot.deleteOne({
-        date: booking.date,
-        time: booking.time,
-      });
+    console.log("STATUS UPDATED:", status);
 
-      console.log("SLOT FREED:", booking.date, booking.time);
+    if (status === "cancelled" || status === "no-show") {
+      try {
+        await Slot.deleteOne({
+          date: booking.date,
+          time: booking.time,
+        });
+
+        console.log("SLOT FREED:", booking.date, booking.time);
+      } catch (slotErr) {
+        console.log("SLOT DELETE ERROR:", slotErr);
+      }
     }
 
     res.json({
@@ -94,7 +101,7 @@ exports.updateBookingStatus = async (req, res) => {
       data: booking,
     });
   } catch (err) {
-    console.log(err);
+    console.log("UPDATE ERROR:", err);
     res.status(500).json({ message: err.message });
   }
 };
