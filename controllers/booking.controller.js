@@ -80,6 +80,11 @@ exports.updateBookingStatus = async (req, res) => {
     booking.status = status;
     await booking.save();
 
+    const io = req.app.get("io");
+    io.emit("booking_status_updated", {
+      booking,
+    });
+
     console.log("STATUS UPDATED:", status);
 
     if (status === "cancelled" || status === "no-show") {

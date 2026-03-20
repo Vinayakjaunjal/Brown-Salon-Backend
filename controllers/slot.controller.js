@@ -35,6 +35,13 @@ exports.saveSlots = async (req, res) => {
   }));
 
   await Slot.insertMany(formatted);
+
+  const io = req.app.get("io");
+  io.emit("booking_status-updated", {
+    booking: {
+      date,
+    },
+  });
   res.json({ success: true });
 };
 
