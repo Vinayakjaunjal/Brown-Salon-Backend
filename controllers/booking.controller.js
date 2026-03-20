@@ -84,14 +84,19 @@ exports.updateBookingStatus = async (req, res) => {
 
     if (status === "cancelled" || status === "no-show") {
       try {
-        await Slot.deleteOne({
-          date: booking.date,
-          time: booking.time,
-        });
+        await Slot.findOneAndUpdate(
+          {
+            date: booking.date,
+            time: booking.time,
+          },
+          {
+            status: "available",
+          },
+        );
 
         console.log("SLOT FREED:", booking.date, booking.time);
-      } catch (slotErr) {
-        console.log("SLOT DELETE ERROR:", slotErr);
+      } catch (err) {
+        console.log("SLOT UPDATE ERROR:", err);
       }
     }
 

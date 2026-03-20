@@ -5,7 +5,8 @@ const SlotSchema = new mongoose.Schema({
   time: String,
   status: {
     type: String,
-    enum: ["booked", "blocked"],
+    enum: ["available", "booked"],
+    default: "available",
   },
 });
 
