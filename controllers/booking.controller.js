@@ -1,5 +1,4 @@
 const Booking = require("../models/Booking");
-const Slot = require("../models/Slot");
 
 exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
