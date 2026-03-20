@@ -19,16 +19,20 @@ exports.createBooking = async (req, res) => {
       userId: req.body.userId,
     });
 
-    await sendEmail({
-      to: booking.email,
-      subject: "Booking Confirmed",
-      html: customerConfirmedTemplate({
-        name: booking.name,
-        category: booking.serviceName,
-        date: booking.date,
-        time: booking.time,
-      }),
-    });
+    try {
+      await sendEmail({
+        to: booking.email,
+        subject: "Booking Confirmed",
+        html: customerConfirmedTemplate({
+          name: booking.name,
+          category: booking.serviceName,
+          date: booking.date,
+          time: booking.time,
+        }),
+      });
+    } catch (err) {
+      console.log("EMAIL ERROR:", err.message);
+    }
 
     res.json({
       success: true,
@@ -94,19 +98,23 @@ exports.updateBookingStatus = async (req, res) => {
     booking.status = status;
     await booking.save();
 
-    await sendEmail({
-      to: booking.email,
-      subject: "Booking Status Update",
-      html: statusUpdateTemplate(
-        {
-          name: booking.name,
-          category: booking.serviceName,
-          date: booking.date,
-          time: booking.time,
-        },
-        status,
-      ),
-    });
+    try {
+      await sendEmail({
+        to: booking.email,
+        subject: "Booking Status Update",
+        html: statusUpdateTemplate(
+          {
+            name: booking.name,
+            category: booking.serviceName,
+            date: booking.date,
+            time: booking.time,
+          },
+          status,
+        ),
+      });
+    } catch (err) {
+      console.log("EMAIL ERROR:", err.message);
+    }
 
     console.log("STATUS UPDATED:", status);
 
