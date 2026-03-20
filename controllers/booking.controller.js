@@ -1,4 +1,7 @@
 const Booking = require("../models/Booking");
+const sendEmail = require("../utils/sendEmail");
+const { customerConfirmedTemplate } = require("../utils/emailTemplates");
+const { statusUpdateTemplate } = require("../utils/emailTemplates");
 
 exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
@@ -14,6 +17,17 @@ exports.createBooking = async (req, res) => {
       email: req.body.email,
       paymentMethod: req.body.paymentMethod,
       userId: req.body.userId,
+    });
+
+    await sendEmail({
+      to: booking.email,
+      subject: "Booking Confirmed",
+      html: customerConfirmedTemplate({
+        name: booking.name,
+        category: booking.serviceName,
+        date: booking.date,
+        time: booking.time,
+      }),
     });
 
     res.json({
@@ -80,9 +94,18 @@ exports.updateBookingStatus = async (req, res) => {
     booking.status = status;
     await booking.save();
 
-    const io = req.app.get("io");
-    io.emit("booking_status_updated", {
-      booking,
+    await sendEmail({
+      to: booking.email,
+      subject: "Booking Status Update",
+      html: statusUpdateTemplate(
+        {
+          name: booking.name,
+          category: booking.serviceName,
+          date: booking.date,
+          time: booking.time,
+        },
+        status,
+      ),
     });
 
     console.log("STATUS UPDATED:", status);

@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const Appointment = require("../models/Appointment");
+const Booking = require("../models/Booking");
 const sendEmail = require("./sendEmail");
 const { reminderTemplate } = require("./emailTemplates");
 
@@ -10,12 +10,12 @@ cron.schedule("*/5 * * * *", async () => {
 
   const today = now.toISOString().split("T")[0];
 
-  const appointments = await Appointment.find({
+  const bookings = await Booking.find({
     date: today,
     status: "confirmed",
   });
 
-  appointments.forEach(async (a) => {
+  bookings.forEach(async (a) => {
     const [time, modifier] = a.time.split(" ");
 
     let [hours, minutes] = time.split(":");
