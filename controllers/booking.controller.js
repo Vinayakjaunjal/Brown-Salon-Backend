@@ -1,4 +1,5 @@
 const Booking = require("../models/Booking");
+const Slot = require("../models/Slot");
 
 exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
@@ -69,17 +70,31 @@ exports.updateBookingStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    const updated = await Booking.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true },
-    );
+    const booking = await Booking.findById(id);
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    booking.status = status;
+    await booking.save();
+
+    // ✅ SLOT UNBLOCK LOGIC
+    if (status === "cancelled" || status === "no-show") {
+      await Slot.deleteOne({
+        date: booking.date,
+        time: booking.time,
+      });
+
+      console.log("SLOT FREED:", booking.date, booking.time);
+    }
 
     res.json({
       success: true,
-      data: updated,
+      data: booking,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
