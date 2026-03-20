@@ -4,15 +4,19 @@ const Booking = require("../models/Booking");
 exports.getSlots = async (req, res) => {
   try {
     const { date } = req.query;
-
+    const slots = await Slot.find({ date });
     const bookings = await Booking.find({ date });
+    const merged = [...slots];
 
-    const bookedSlots = bookings.map((b) => ({
-      time: b.time,
-      status: "booked",
-    }));
+    bookings.forEach((b) => {
+      merged.push({
+        date: b.date,
+        time: b.time,
+        status: b.status === "confirmed" ? "booked" : "available",
+      });
+    });
 
-    res.json(bookedSlots);
+    res.json(merged);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err.message });
