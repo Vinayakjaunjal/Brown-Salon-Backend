@@ -38,7 +38,7 @@ exports.createBooking = async (req, res) => {
     try {
       await sendEmail({
         to: process.env.ADMIN_EMAIL,
-        subject: "New Booking Received",
+        subject: `New Booking - ${booking.serviceName}(${booking.date})`,
         html: adminNewAppointmentTemplate({
           name: booking.name,
           phone: booking.phone,
