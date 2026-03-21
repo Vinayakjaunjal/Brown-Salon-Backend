@@ -255,25 +255,45 @@ exports.reminderTemplate = (data) => `
 
 <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;">
 
-${HEADER}
+  ${HEADER}
 
-<div style="padding:25px;">
-  <h3 style="text-align:center;color:#2563eb;">⏰ Reminder</h3>
+  <div style="padding:25px;">
 
-  <p>Hello <b>${data.name}</b>,</p>
+    <h3 style="text-align:center;color:#2563eb;">
+      ⏰ Appointment Reminder
+    </h3>
 
-  <p>Your appointment is in 30 minutes.</p>
+    <p>Hello <b>${data.name}</b>,</p>
 
-  <div style="background:#f9fafb;padding:15px;border-radius:10px;">
-    <p><b>Service:</b> ${data.category}</p>
-    <p><b>Date:</b> ${data.date}</p>
-    <p><b>Time:</b> ${data.time}</p>
+    <p>
+      This is a reminder that your appointment is scheduled shortly.
+    </p>
+
+    <div style="background:#f9fafb;padding:15px;border-radius:10px;">
+      <p><b>Service:</b> ${data.category || data.serviceName}</p>
+      <p><b>Date:</b> ${data.date}</p>
+      <p><b>Time:</b> ${data.time}</p>
+    </div>
+
+    <p style="margin-top:15px;">
+      Please arrive <b>10 minutes before</b> your scheduled time.
+    </p>
+
+    <p>
+      We look forward to serving you.
+    </p>
+
+    <p style="margin-top:20px;">
+      Regards,<br/>
+      <b>Brown Hair Salon</b>
+    </p>
+
   </div>
 
+  ${FOOTER}
+
 </div>
 
-${FOOTER}
-</div>
 </body>
 </html>
 `;

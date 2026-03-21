@@ -18,6 +18,10 @@ const BookingSchema = new mongoose.Schema(
       enum: ["confirmed", "completed", "cancelled", "no-show"],
       default: "confirmed",
     },
+    reminderSent: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

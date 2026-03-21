@@ -31,15 +31,13 @@ cron.schedule("*/5 * * * *", async () => {
     appointmentTime.setHours(hours);
     appointmentTime.setMinutes(minutes);
     appointmentTime.setSeconds(0);
-    appointmentTime.setHours(appointmentTime.getHours() - 5);
-    appointmentTime.setMinutes(appointmentTime.getMinutes() - 30);
 
     const diff = (appointmentTime - now) / 60000;
 
-    if (diff > 29 && diff < 31 && !a.reminderSent) {
+    if (diff > 20 && diff < 30 && !a.reminderSent) {
       await sendEmail({
         to: a.email,
-        subject: "Appointment Reminder",
+        subject: `Appointment Reminder: ${data.serviceName} at ${data.time}`,
         html: reminderTemplate(a),
       });
 
