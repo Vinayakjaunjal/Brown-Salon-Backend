@@ -2,6 +2,7 @@ const Booking = require("../models/Booking");
 const sendEmail = require("../utils/sendEmail");
 const { customerConfirmedTemplate } = require("../utils/emailTemplates");
 const { statusUpdateTemplate } = require("../utils/emailTemplates");
+const { adminNewAppointmentTemplate } = require("../utils/emailTemplates");
 
 exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
@@ -32,6 +33,23 @@ exports.createBooking = async (req, res) => {
       });
     } catch (err) {
       console.log("EMAIL ERROR:", err.message);
+    }
+
+    try {
+      await sendEmail({
+        to: process.env.ADMIN_EMAIL,
+        subject: "New Booking Received",
+        html: adminNewAppointmentTemplate({
+          name: booking.name,
+          phone: booking.phone,
+          email: booking.email,
+          category: booking.serviceName,
+          date: booking.date,
+          time: booking.time,
+        }),
+      });
+    } catch (err) {
+      console.log("ADMIN EMAIL ERROR:", err.message);
     }
 
     res.json({
