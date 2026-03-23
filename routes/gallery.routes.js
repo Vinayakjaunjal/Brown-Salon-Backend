@@ -10,7 +10,6 @@ const {
   reorderGallery,
 } = require("../controllers/gallery.controller");
 
-// MULTER CONFIG (same as before)
 const storage = multer.diskStorage({
   destination: "uploads/gallery",
   filename: (req, file, cb) =>

@@ -1,6 +1,7 @@
 const Festival = require("../models/Festival");
 const sendEmail = require("../utils/sendEmail");
 const Customer = require("../models/Customer");
+const { festivalTemplate } = require("../utils/emailTemplates");
 
 // ================= GET =================
 
@@ -23,8 +24,6 @@ exports.deleteFestival = async (req, res) => {
   await Festival.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 };
-
-// ================= SEND WISH =================
 
 // ================= SEND FESTIVAL WISH =================
 
@@ -52,13 +51,11 @@ exports.sendFestivalWish = async (req, res) => {
 
     // ================= EMAIL TEMPLATE =================
 
-    const html = `
-    <h2>${fest.name} Wishes from Brown Hair Salon 🎉</h2>
-    <p>${fest.message}</p>
-    <br/>
-    <p>We look forward to serving you again 💇</p>
-    <b>Brown Hair The Unisex Salon</b>
-    `;
+    const html = festivalTemplate({
+      name: fest.name,
+      message: fest.message,
+      subject: `✨ ${fest.name} Wishes from Brown Hair Salon`,
+    });
 
     // ================= THROTTLED SEND =================
 

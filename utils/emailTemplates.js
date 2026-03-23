@@ -325,3 +325,54 @@ ${FOOTER}
 </body>
 </html>
 `;
+
+// ======== FESTIVAL EMAIL ======== //
+
+exports.festivalTemplate = (data) => `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;background:#f4f6f8;font-family:Arial;">
+
+<div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;">
+
+  ${HEADER}
+
+  <div style="padding:25px;">
+
+    <h2 style="text-align:center;color:#d4af37;">
+      🎉 ${data.name} Wishes 🎉
+    </h2>
+
+    <p>Hello,</p>
+
+    <p style="font-size:15px;line-height:1.6;">
+      ${data.message}
+    </p>
+
+    <div style="background:#f9fafb;padding:15px;border-radius:10px;margin-top:15px;">
+      <p style="margin:0;">
+        ✨ Celebrate this special occasion with style and confidence.
+      </p>
+      <p style="margin-top:8px;">
+        💇 Visit us and enjoy our premium salon services.
+      </p>
+    </div>
+
+    <p style="margin-top:20px;">
+      We look forward to welcoming you soon.
+    </p>
+
+    <p style="margin-top:20px;">
+      Warm wishes,<br/>
+      <b>Brown Hair – The Unisex Salon</b>
+    </p>
+
+  </div>
+
+  ${FOOTER}
+
+</div>
+
+</body>
+</html>
+`;
