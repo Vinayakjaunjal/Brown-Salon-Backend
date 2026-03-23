@@ -54,7 +54,6 @@ exports.sendFestivalWish = async (req, res) => {
     const html = festivalTemplate({
       name: fest.name,
       message: fest.message,
-      subject: `✨ ${fest.name} Wishes from Brown Hair Salon`,
     });
 
     // ================= THROTTLED SEND =================

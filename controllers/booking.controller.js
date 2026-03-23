@@ -3,9 +3,11 @@ const sendEmail = require("../utils/sendEmail");
 const { customerConfirmedTemplate } = require("../utils/emailTemplates");
 const { statusUpdateTemplate } = require("../utils/emailTemplates");
 const { adminNewAppointmentTemplate } = require("../utils/emailTemplates");
+const Customer = require("../models/Customer");
 
 exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
+
   try {
     const booking = await Booking.create({
       serviceId: req.body.serviceId,
@@ -19,6 +21,27 @@ exports.createBooking = async (req, res) => {
       paymentMethod: req.body.paymentMethod,
       userId: req.body.userId,
     });
+
+    try {
+      const existingCustomer = await Customer.findOne({
+        email: booking.email,
+      });
+
+      if (!existingCustomer) {
+        await Customer.create({
+          name: booking.name,
+          email: booking.email,
+          visits: 1,
+          lastVisit: booking.date,
+        });
+      } else {
+        existingCustomer.visits += 1;
+        existingCustomer.lastVisit = booking.date;
+        await existingCustomer.save();
+      }
+    } catch (err) {
+      console.log("CUSTOMER SAVE ERROR:", err.message);
+    }
 
     try {
       await sendEmail({
@@ -38,7 +61,7 @@ exports.createBooking = async (req, res) => {
     try {
       await sendEmail({
         to: process.env.ADMIN_EMAIL,
-        subject: `New Booking - ${booking.serviceName}(${booking.date})`,
+        subject: `New Booking - ${booking.serviceName} (${booking.date})`,
         html: adminNewAppointmentTemplate({
           name: booking.name,
           phone: booking.phone,

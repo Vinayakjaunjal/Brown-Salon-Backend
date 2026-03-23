@@ -17,6 +17,7 @@ const notificationRoutes = require("./routes/notification.routes");
 const festivalRoutes = require("./routes/festival.routes");
 const bookingRoutes = require("./routes/booking.routes");
 const authRoutes = require("./routes/auth.routes");
+const customerRoutes = require("./routes/customer.routes");
 
 const errorHandler = require("./middleware/errorHandler");
 
@@ -39,6 +40,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/festivals", festivalRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", require("./routes/user.routes"));
+app.use("/api/customers", customerRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
