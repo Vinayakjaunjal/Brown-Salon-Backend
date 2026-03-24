@@ -1,17 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/Admin");
-const nodemailer = require("nodemailer");
+const sendEmail = require("../utils/sendEmail");
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 exports.loginAdmin = async (req, res) => {
   try {
@@ -87,14 +79,13 @@ exports.forgotPassword = async (req, res) => {
       return res.status(404).json({ message: "Email not found" });
     }
 
-    const resetToken = jwt.sign({ id: admin._id }, JWT_SECRET, {
+    const resetToken = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
 
     const resetLink = `${process.env.FRONTEND_URL}/admin-reset/${resetToken}`;
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    await sendEmail({
       to: email,
       subject: "Reset your admin password",
       html: `<a href="${resetLink}">${resetLink}</a>`,
@@ -102,8 +93,8 @@ exports.forgotPassword = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.log("FORGOT ERROR:", err); // 🔥 debug
-    res.status(500).json({ message: "Server error" });
+    console.log("FORGOT ERROR:", err.message);
+    res.status(500).json({ message: err.message });
   }
 };
 
