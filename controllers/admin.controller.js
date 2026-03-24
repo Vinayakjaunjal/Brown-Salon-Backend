@@ -91,16 +91,18 @@ exports.forgotPassword = async (req, res) => {
       expiresIn: "15m",
     });
 
-    const resetLink = `http://localhost:5173/admin-reset/${resetToken}`;
+    const resetLink = `${process.env.FRONTEND_URL}/admin-reset/${resetToken}`;
 
-    await sendEmail({
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Reset your admin password",
       html: `<a href="${resetLink}">${resetLink}</a>`,
     });
 
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.log("FORGOT ERROR:", err); // 🔥 debug
     res.status(500).json({ message: "Server error" });
   }
 };
