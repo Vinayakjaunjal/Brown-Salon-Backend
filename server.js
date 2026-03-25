@@ -38,6 +38,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/festivals", festivalRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", require("./routes/user.routes"));
+app.use("/api/customers", customerRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
