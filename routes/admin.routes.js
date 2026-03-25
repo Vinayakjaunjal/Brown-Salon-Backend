@@ -14,7 +14,7 @@ const adminAuth = require("../middleware/adminAuth");
 router.post("/login", loginAdmin);
 router.post("/create", createAdmin);
 router.post("/forgot-password", forgotPassword);
-router.post("/reset-password/:token", resetPassword);
+router.post("/reset/:token", resetPassword);
 router.get("/profile", adminAuth, getProfile);
 
 module.exports = router;
