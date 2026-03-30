@@ -10,6 +10,7 @@ exports.uploadImage = async (req, res) => {
   await Gallery.create({
     image: `/uploads/gallery/${req.file.filename}`,
     order: count,
+    category: req.body.category || "work", // 👈 add this
   });
 
   res.json({ success: true });
