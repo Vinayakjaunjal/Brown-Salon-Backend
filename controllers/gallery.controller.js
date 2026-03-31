@@ -8,7 +8,7 @@ exports.uploadImage = async (req, res) => {
   const count = await Gallery.countDocuments();
 
   await Gallery.create({
-    image: `/uploads/gallery/${req.file.filename}`,
+    image: req.file ? req.file.path : "",
     order: count,
     category: req.body.category || "work", // 👈 add this
   });

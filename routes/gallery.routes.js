@@ -1,6 +1,5 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
+const upload = require("../middleware/upload");
 const router = express.Router();
 
 const {
@@ -10,14 +9,6 @@ const {
   reorderGallery,
   updateCategory,
 } = require("../controllers/gallery.controller");
-
-const storage = multer.diskStorage({
-  destination: "uploads/gallery",
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + path.extname(file.originalname)),
-});
-
-const upload = multer({ storage });
 
 router.get("/", getGallery);
 router.post("/", upload.single("image"), uploadImage);

@@ -1,6 +1,5 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
+const upload = require("../middleware/upload");
 const router = express.Router();
 
 const {
@@ -10,15 +9,6 @@ const {
   deleteReview,
   toggleReview,
 } = require("../controllers/review.controller");
-
-// MULTER CONFIG
-const storage = multer.diskStorage({
-  destination: "uploads/reviews",
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + path.extname(file.originalname)),
-});
-
-const upload = multer({ storage });
 
 router.get("/", getReviews);
 router.post("/", upload.single("image"), addReview);

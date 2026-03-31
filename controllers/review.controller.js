@@ -9,7 +9,7 @@ exports.addReview = async (req, res) => {
     name: req.body.name,
     review: req.body.review,
     rating: req.body.rating,
-    image: req.file ? `/uploads/reviews/${req.file.filename}` : "",
+    image: req.file ? req.file.path : "",
   });
 
   res.json({ success: true });
@@ -23,7 +23,7 @@ exports.updateReview = async (req, res) => {
   };
 
   if (req.file) {
-    updateData.image = `/uploads/reviews/${req.file.filename}`;
+    updateData.image = req.file.path;
   }
 
   await Review.findByIdAndUpdate(req.params.id, updateData);
