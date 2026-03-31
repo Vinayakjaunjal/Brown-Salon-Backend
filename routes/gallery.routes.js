@@ -22,5 +22,6 @@ router.get("/", getGallery);
 router.post("/", upload.single("image"), uploadImage);
 router.delete("/:id", deleteImage);
 router.put("/reorder", reorderGallery);
+router.put("/:id/category", updateCategory);
 
 module.exports = router;

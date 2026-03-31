@@ -16,6 +16,12 @@ exports.uploadImage = async (req, res) => {
   res.json({ success: true });
 };
 
+exports.updateCategory = async (req, res) => {
+  const { category } = req.body;
+  await Gallery.findByIdAndUpdate(req.params.id, { category });
+  res.json({ success: true });
+};
+
 exports.deleteImage = async (req, res) => {
   await Gallery.findByIdAndDelete(req.params.id);
   res.json({ success: true });
