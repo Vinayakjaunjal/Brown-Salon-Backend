@@ -26,13 +26,3 @@ exports.deleteImage = async (req, res) => {
   await Gallery.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 };
-
-exports.reorderGallery = async (req, res) => {
-  const { items } = req.body;
-
-  for (let i = 0; i < items.length; i++) {
-    await Gallery.findByIdAndUpdate(items[i]._id, { order: i });
-  }
-
-  res.json({ success: true });
-};
