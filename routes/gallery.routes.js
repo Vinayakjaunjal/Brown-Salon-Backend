@@ -8,6 +8,7 @@ const {
   uploadImage,
   deleteImage,
   reorderGallery,
+  updateCategory,
 } = require("../controllers/gallery.controller");
 
 const storage = multer.diskStorage({
