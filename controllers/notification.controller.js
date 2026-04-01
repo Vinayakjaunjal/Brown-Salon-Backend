@@ -6,7 +6,7 @@ exports.getNotifications = async (req, res) => {
 };
 
 exports.clearNotifications = async (req, res) => {
-  await Notification.updateMany({}, { isRead: true });
+  await Notification.deleteMany({});
   res.json({ success: true });
 };
 

@@ -17,6 +17,11 @@ router.put("/:id/read", async (req, res) => {
 });
 
 router.put("/clear", clearNotifications);
-router.delete("/", deleteNotifications);
+router.delete("/", clearNotifications);
+
+router.delete("/:id", async (req, res) => {
+  await Notification.findByIdAndDelete(req.params.id);
+  res.json({ success: true });
+});
 
 module.exports = router;
