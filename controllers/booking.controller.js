@@ -1,5 +1,6 @@
 const Booking = require("../models/Booking");
 const sendEmail = require("../utils/sendEmail");
+const Notification = require("../models/Notification");
 const { customerConfirmedTemplate } = require("../utils/emailTemplates");
 const { statusUpdateTemplate } = require("../utils/emailTemplates");
 const { adminNewAppointmentTemplate } = require("../utils/emailTemplates");
@@ -20,6 +21,13 @@ exports.createBooking = async (req, res) => {
       email: req.body.email,
       paymentMethod: req.body.paymentMethod,
       userId: req.body.userId,
+    });
+
+    await Notification.create({
+      title: "New Appointment 📅",
+      message: `${req.body.name} booked a service`,
+      type: "appointment",
+      link: "/admin/bookings",
     });
 
     try {
