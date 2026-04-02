@@ -15,7 +15,7 @@ cron.schedule("*/5 * * * *", async () => {
     status: "confirmed",
   });
 
-  bookings.forEach(async (a) => {
+  for (const a of bookings) {
     const [time, modifier] = a.time.split(" ");
 
     let [hours, minutes] = time.split(":");
@@ -37,12 +37,12 @@ cron.schedule("*/5 * * * *", async () => {
     if (diff > 20 && diff < 30 && !a.reminderSent) {
       await sendEmail({
         to: a.email,
-        subject: `Appointment Reminder: ${data.serviceName} at ${data.time}`,
+        subject: `Appointment Reminder: ${a.serviceName} at ${a.time}`,
         html: reminderTemplate(a),
       });
 
       a.reminderSent = true;
       await a.save();
     }
-  });
+  }
 });
