@@ -3,7 +3,9 @@ const Booking = require("../models/Booking");
 const sendEmail = require("./sendEmail");
 const { reminderTemplate } = require("./emailTemplates");
 
+console.log("CRON STARTED");
 cron.schedule("*/5 * * * *", async () => {
+  console.log("CRON RUNNING", new Date());
   const now = new Date();
 
   const next30Min = new Date(now.getTime() + 30 * 60000);
