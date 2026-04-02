@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const sendEmail = require("../utils/sendEmail");
 
 exports.register = async (req, res) => {
   try {
@@ -64,27 +65,30 @@ exports.login = async (req, res) => {
 
 exports.sendOtp = async (req, res) => {
   try {
-    const { phone } = req.body;
-
-    const existing = await User.findOne({ phone });
-
-    if (existing && existing.isVerified) {
-      return res.status(400).json({ message: "User already exists" });
-    }
+    const { phone } = req.body; // 👉 this is email now
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    let user = existing || new User({ phone });
+    let user = await User.findOne({ phone });
+
+    if (!user) {
+      user = new User({ phone });
+    }
 
     user.otp = otp;
     user.otpExpiry = Date.now() + 5 * 60 * 1000;
 
     await user.save();
 
-    console.log("OTP:", otp);
+    await sendEmail({
+      to: phone,
+      subject: "Your OTP Code",
+      html: `<h2>Your OTP is ${otp}</h2>`,
+    });
 
-    res.json({ success: true, message: "OTP sent" });
+    res.json({ success: true, message: "OTP sent to email" });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
