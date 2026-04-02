@@ -251,39 +251,67 @@ exports.statusUpdateTemplate = (data, status) => {
 exports.reminderTemplate = (data) => `
 <!DOCTYPE html>
 <html>
-<body style="margin:0;background:#f4f6f8;font-family:Arial;">
+<body style="margin:0;background:#f4f6f8;font-family:Poppins,Arial;">
 
-<div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;">
+<div style="max-width:600px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;">
 
   ${HEADER}
 
   <div style="padding:25px;">
 
-    <h3 style="text-align:center;color:#2563eb;">
+    <!-- TITLE -->
+    <h2 style="text-align:center;color:#2563eb;margin-bottom:5px;">
       ⏰ Appointment Reminder
-    </h3>
+    </h2>
 
-    <p>Hello <b>${data.name}</b>,</p>
-
-    <p>
-      This is a reminder that your appointment is scheduled shortly.
+    <p style="text-align:center;color:#6b7280;font-size:13px;margin-bottom:20px;">
+      Your appointment is coming up soon
     </p>
 
-    <div style="background:#f9fafb;padding:15px;border-radius:10px;">
-      <p><b>Service:</b> ${data.category || data.serviceName}</p>
-      <p><b>Date:</b> ${data.date}</p>
-      <p><b>Time:</b> ${data.time}</p>
+    <!-- GREETING -->
+    <p style="font-size:14px;">Hello <b>${data.name}</b>,</p>
+
+    <p style="font-size:14px;color:#374151;">
+      This is a quick reminder for your upcoming appointment at 
+      <b>Brown Hair Salon</b>.
+    </p>
+
+    <!-- CARD -->
+    <div style="background:#f9fafb;padding:18px;border-radius:12px;border:1px solid #eee;margin:20px 0;">
+
+      <p style="margin:6px 0;font-size:14px;">
+        <b>💇 Service:</b> ${data.category || data.serviceName}
+      </p>
+
+      <p style="margin:6px 0;font-size:14px;">
+        <b>📅 Date:</b> ${data.date}
+      </p>
+
+      <p style="margin:6px 0;font-size:14px;">
+        <b>⏱ Time:</b> ${data.time}
+      </p>
+
     </div>
 
-    <p style="margin-top:15px;">
-      Please arrive <b>10 minutes before</b> your scheduled time.
+    <!-- INFO BOX -->
+    <div style="background:#ecfdf5;padding:12px;border-radius:10px;font-size:13px;color:#065f46;">
+      ✔ Please arrive <b>10 minutes early</b> for a smooth experience.
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center;margin-top:20px;">
+      <a href="https://brownsalon.co.in/profile"
+         style="display:inline-block;background:#facc15;color:#000;padding:10px 18px;border-radius:8px;font-size:14px;text-decoration:none;font-weight:600;">
+         View Booking
+      </a>
+    </div>
+
+    <!-- FOOT NOTE -->
+    <p style="margin-top:25px;font-size:13px;color:#6b7280;">
+      If you need to reschedule, please contact us in advance.
     </p>
 
-    <p>
-      We look forward to serving you.
-    </p>
-
-    <p style="margin-top:20px;">
+    <p style="margin-top:20px;font-size:14px;">
       Regards,<br/>
       <b>Brown Hair Salon</b>
     </p>
