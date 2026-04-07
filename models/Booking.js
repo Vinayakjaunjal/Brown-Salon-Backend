@@ -8,6 +8,11 @@ const BookingSchema = new mongoose.Schema(
     phone: String,
     date: String,
     time: String,
+
+    artist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Artist",
+    },
     totalAmount: Number,
     email: String,
     paymentMethod: String,
