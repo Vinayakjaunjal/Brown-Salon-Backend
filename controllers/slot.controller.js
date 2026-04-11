@@ -3,44 +3,59 @@ const Booking = require("../models/Booking");
 
 exports.getSlots = async (req, res) => {
   try {
-    const { date } = req.query;
-    const slots = await Slot.find({ date });
-    const bookings = await Booking.find({ date });
+    const { date, artist } = req.query;
+
+    const slots = await Slot.find({ date, artist });
+    const bookings = await Booking.find({
+      date,
+      artist,
+      status: "confirmed",
+    });
+
     const merged = [...slots];
 
     bookings.forEach((b) => {
       merged.push({
         date: b.date,
         time: b.time,
-        status: b.status === "confirmed" ? "booked" : "available",
+        status: "booked",
         artist: b.artist,
       });
     });
 
     res.json(merged);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };
 
 exports.saveSlots = async (req, res) => {
-  const { date, slots } = req.body;
+  const { date, artist, slots } = req.body;
 
-  await Slot.deleteMany({ date, artist: artistId });
+  await Slot.deleteMany({ date, artist });
 
   const formatted = slots.map((s) => ({
     date,
     time: s.time,
     status: s.status,
+    artist,
   }));
 
   await Slot.insertMany(formatted);
+
+  const room = `${date}_${artist}`;
+  global.io.to(room).emit("slotUpdated", { date, artist });
+
   res.json({ success: true });
 };
 
 exports.getAvailableSlots = async (req, res) => {
-  const { date } = req.query;
+  const { date, artist } = req.query;
+  const mongoose = require("mongoose");
+
+  if (!artist || !mongoose.Types.ObjectId.isValid(artist)) {
+    return res.json([]);
+  }
 
   const defaultSlots = [
     "9:00 AM",
@@ -72,36 +87,56 @@ exports.getAvailableSlots = async (req, res) => {
     "10:00 PM",
   ];
 
-  const blockedOrBooked = await Slot.find({ date });
+  const bookings = await Booking.find({
+    date,
+    artist,
+    status: "confirmed",
+  });
 
-  const blockedTimes = blockedOrBooked.map((s) => s.time);
+  const blocked = await Slot.find({
+    date,
+    artist,
+    status: { $in: ["blocked"] },
+  });
 
-  const availableSlots = defaultSlots.filter(
-    (slot) => !blockedTimes.includes(slot),
-  );
+  const slotData = await Slot.find({ date, artist });
 
-  res.json(availableSlots);
+  const result = defaultSlots.map((time) => {
+    const booking = bookings.find((b) => b.time === time);
+    const slot = slotData.find((s) => s.time === time);
+
+    if (booking) return { time, status: "booked" };
+    if (slot) return { time, status: slot.status };
+
+    return { time, status: "available" };
+  });
+
+  res.json(result);
 };
 
 exports.blockSlot = async (req, res) => {
-  const { date, time } = req.body;
+  const { date, time, artist } = req.body;
 
   await Slot.create({
     date,
     time,
+    artist,
     status: "blocked",
   });
 
+  const room = `${date}_${artist}`;
   global.io.to(room).emit("slotUpdated", { date, artist });
-  res.json({ success: true });
 
   res.json({ success: true });
 };
 
 exports.unblockSlot = async (req, res) => {
-  const { date, time } = req.body;
+  const { date, time, artist } = req.body;
 
-  await Slot.deleteOne({ date, time });
+  await Slot.deleteOne({ date, time, artist });
+
+  const room = `${date}_${artist}`;
+  global.io.to(room).emit("slotUpdated", { date, artist });
 
   res.json({ success: true });
 };

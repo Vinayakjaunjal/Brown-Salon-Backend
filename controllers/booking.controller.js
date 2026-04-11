@@ -10,6 +10,22 @@ exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
 
   try {
+    const { date, time, artist } = req.body;
+
+    const exists = await Booking.findOne({
+      date,
+      time,
+      artist,
+      status: "confirmed",
+    });
+
+    if (exists) {
+      return res.status(400).json({
+        success: false,
+        message: "Slot already booked for this artist",
+      });
+    }
+
     const booking = await Booking.create({
       serviceId: req.body.serviceId,
       name: req.body.name,
