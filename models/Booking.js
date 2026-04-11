@@ -17,6 +17,10 @@ const BookingSchema = new mongoose.Schema(
     email: String,
     paymentMethod: String,
     userId: String,
+    artist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Artist",
+    },
 
     status: {
       type: String,

@@ -10,21 +10,6 @@ exports.createBooking = async (req, res) => {
   console.log("CREATING BOOKING:", req.body);
 
   try {
-    const { date, time, artist } = req.body;
-    const exists = await Booking.findOne({
-      date,
-      time,
-      artist,
-      status: "confirmed",
-    });
-
-    if (exists) {
-      return res.status(400).json({
-        success: false,
-        message: "Slot already booked",
-      });
-    }
-
     const booking = await Booking.create({
       serviceId: req.body.serviceId,
       name: req.body.name,
@@ -37,6 +22,14 @@ exports.createBooking = async (req, res) => {
       email: req.body.email,
       paymentMethod: req.body.paymentMethod,
       userId: req.body.userId,
+      artist: req.body.artist,
+    });
+
+    const populatedBooking = await booking.populate("artist");
+
+    res.json({
+      success: true,
+      data: populatedBooking,
     });
 
     await Notification.create({
@@ -76,6 +69,7 @@ exports.createBooking = async (req, res) => {
           category: booking.serviceName,
           date: booking.date,
           time: booking.time,
+          artist: populatedBooking.artist?.name,
         }),
       });
     } catch (err) {
@@ -93,15 +87,17 @@ exports.createBooking = async (req, res) => {
           category: booking.serviceName,
           date: booking.date,
           time: booking.time,
+          artist: populatedBooking.artist?.name,
         }),
       });
     } catch (err) {
       console.log("ADMIN EMAIL ERROR:", err.message);
     }
 
-    res.json({
-      success: true,
-      data: booking,
+    const io = req.app.get("io");
+    io.emit("slotUpdated", {
+      date: booking.date,
+      artist: booking.artist,
     });
   } catch (err) {
     console.error(err);
@@ -122,6 +118,7 @@ exports.getBookings = async (req, res) => {
 
     const bookings = await Booking.find({ userId })
       .populate("serviceId")
+      .populate("artist")
       .sort({ createdAt: -1 });
 
     res.json({
@@ -136,7 +133,9 @@ exports.getBookings = async (req, res) => {
 
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().sort({ createdAt: -1 });
+    const bookings = await Booking.find()
+      .populate("artist")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -160,6 +159,8 @@ exports.updateBookingStatus = async (req, res) => {
       return res.status(404).json({ message: "Booking not found" });
     }
 
+    const populatedBooking = await booking.populate("artist");
+
     booking.status = status;
     await booking.save();
 
@@ -173,6 +174,7 @@ exports.updateBookingStatus = async (req, res) => {
             category: booking.serviceName,
             date: booking.date,
             time: booking.time,
+            artist: populatedBooking.artist?.name,
           },
           status,
         ),

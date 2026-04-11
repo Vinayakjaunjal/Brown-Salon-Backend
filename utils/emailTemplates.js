@@ -45,6 +45,7 @@ ${HEADER}
     <p><b>Service:</b> ${data.category}</p>
     <p><b>Date:</b> ${data.date}</p>
     <p><b>Time:</b> ${data.time}</p>
+    <p><b>Artist:</b> ${data.artist}</p>
     <p><b>Status:</b> <span style="color:#16a34a;font-weight:bold;">Confirmed</span></p>
   </div>
 
@@ -78,6 +79,7 @@ ${HEADER}
     <p><b>Email:</b> ${data.email}</p>
     <p><b>Service:</b> ${data.category}</p>
     <p><b>Date:</b> ${data.date}</p>
+    <p><b>Artist:</b> ${data.artist}</p>
     <p><b>Time:</b> ${data.time}</p>
   </div>
 
@@ -167,6 +169,10 @@ exports.statusUpdateTemplate = (data, status) => {
         <tr>
           <td><b>Time</b></td>
           <td>${data.time}</td>
+        </tr>
+        <tr>
+          <td><b>Artist</b></td>
+          <td>${data.artist}</td>
         </tr>
         <tr>
           <td><b>Status</b></td>

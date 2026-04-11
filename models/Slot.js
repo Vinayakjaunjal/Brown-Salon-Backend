@@ -8,6 +8,11 @@ const SlotSchema = new mongoose.Schema({
   date: String,
   time: String,
 
+  artist: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Artist",
+  },
+
   status: {
     type: String,
     enum: ["available", "blocked"],
