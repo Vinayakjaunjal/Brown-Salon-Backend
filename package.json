@@ -1,6 +1,9 @@
 {
   "name": "brown-salon-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "22.x"
+  },
   "description": "Backend API for Brown Salon",
   "main": "server.js",
   "scripts": {
