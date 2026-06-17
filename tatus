@@ -1,0 +1,122 @@
+[33m06411f2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix Render Deploy Dependency
+[33m760ef82[m Update User Security
+[33mcbd19ce[m Fix Conflict Issue
+[33ma46c793[m Update Model
+[33m5b7dd8f[m Update Multi Artist
+[33m6765851[m Update Login Auth
+[33m5f178db[m Update bcrypt
+[33m6caca01[m Update Login Flow
+[33m0e28838[m Update Reminder Email
+[33m945c7ce[m Update Console
+[33m3158dba[m Update Reminder System
+[33md5203fc[m Update UI Notify
+[33md8ec288[m Update Notification
+[33m1cfc8da[m Update Cloudinary for gallery and reviews
+[33m70d1cd4[m Update Final Backend
+[33mc608501[m Update Backend
+[33mb6437c5[m Update Category
+[33ma442323[m Update Gallery Section
+[33md8d12f2[m Update Gallery Model
+[33mc7b2329[m Update Gallery Sizes
+[33m753bbfa[m Reset Pass Change
+[33mfc2b3f2[m Update Reset Flow
+[33m1c9aaea[m Update Reset
+[33m7c0738a[m Update Forgott Flow
+[33m354c0ac[m Update Forgot Pass
+[33m5c47fb6[m Remove Appointment Schema
+[33m3f8eb55[m Update Customer Model
+[33m3a1f75e[m Festival Template Update
+[33mf1fd5b2[m Update Gallery
+[33md8771b7[m Fix Autocrop images
+[33m7fd35a1[m Update Reminder Email
+[33m541ac0a[m Update Admin Status
+[33m1f99481[m Update Admin
+[33mdfc89d4[m Update Email Template
+[33mfc5549a[m Update Premium Emails
+[33m6a92583[m Update Email API
+[33mca7c999[m Fix Email Crash
+[33m865f41b[m Update Email System
+[33m7b4c841[m Update Slot System
+[33m243bcc0[m Install Socket
+[33m6f2c066[m Update Socket Use
+[33m9528005[m Update Slot Model
+[33m0c66c6e[m Fix Slots Updated Free
+[33mfe2c8b9[m Fix Slot Free
+[33me51f4d8[m Update Slot Booking
+[33maae2717[m Update Slots Free
+[33mb76a1fd[m Update User Date in Booking
+[33m489d748[m Fix User Name in Bookings
+[33ma145332[m Remove Appointment Model
+[33me755066[m Booking Status Update
+[33ma2950cb[m Booking Status Fix
+[33m00e1c0a[m Fix Booking Service
+[33mcf56a68[m Fix User Profile
+[33m4bfa886[m Fix Hardcoded Data
+[33mc4be8f1[m Final update pricing
+[33m6a9ff1c[m Fix Update History
+[33mb573870[m Update Booking History
+[33m8af2079[m Temporary Profile Update
+[33m261b777[m Temporary Profile
+[33mb5224b5[m Fix Secret
+[33mddc44f5[m Update Profile
+[33mc953fcf[m Temp Logout Band
+[33mc5c1286[m User Profile Page fix
+[33m9473fc6[m UI Login Setup
+[33mba69f7a[m Update Latest Booking
+[33mb59cab4[m Update Booking
+[33md1d19f2[m fix slot
+[33mcae95bd[m force Deploy
+[33m6643ed6[m Get Service by Id
+[33mcc2fe81[m force rebuild
+[33m2e46c01[m Clean Clooudinary Fix
+[33m26bc451[m Cloudinary Fix
+[33ma2e0cad[m Fix Cloudinary env
+[33m2380649[m Fix Multer Setup
+[33meea90c1[m Resolving Service
+[33m6fb51bd[m Fix Service schema
+[33m3ea0e9b[m remove upload temp
+[33m102e99d[m Fix Service upload
+[33m2f451e3[m fixed cloudinary
+[33m0ce7e2e[m Fix Cloudinary upload
+[33m47fccfa[m Fix Redeclare
+[33md86e04f[m Small fix Clodinary
+[33m0228e3d[m update clodinary
+[33m8761258[m Fix Cloudinary
+[33mb9500c9[m Setup Cloudinary
+[33m7870963[m add uploads folder
+[33m1d332f4[m Fix Server for trimly
+[33m0be6eba[m update service schemafor trimly
+[33m6f1e69c[m Check Collection database
+[33m5212fd4[m Fix Bulk
+[33m39079cb[m Update Email Bulk
+[33ma48a9f2[m festival email
+[33m9d36ca8[m Festival model add
+[33md05048c[m Fix Emails Template
+[33mca87b28[m Reminder timezone fix
+[33m3c08bd0[m Auto Reminder Email Added
+[33mb25573e[m Update reviews link in email
+[33m383560e[m Update email System
+[33ma08ff53[m Status Updated
+[33mab19183[m Status Update
+[33mc2b6cc6[m Fix Flow
+[33mf2ae628[m Booking Flow
+[33md11d90a[m Booking Flow Changes
+[33m2d291f5[m Final Deploy
+[33mf66366a[m Last fix to Both
+[33m10584ea[m Mobile Fix
+[33m96d5659[m Mobile Backend Issue
+[33md2bd736[m Final Fixed Birthday Template
+[33meacc00b[m Fix Email Template
+[33mdf50514[m  Fix Cors & Email Admin
+[33me57686d[m Fix Admin Email
+[33m3420f61[m Fix issue mobile-backend
+[33m67b6ad9[m Fix Cors Ready to Deploy
+[33m6c8eb88[m Use Brevo API key
+[33m07a3bd7[m Brevo Testing
+[33m1b09a69[m Brevo Smtp Setup
+[33me86255d[m Final Email Setup
+[33m470482d[m Fix Nodemailer setup
+[33mea38f7d[m Final Fixed For Frontend
+[33mc88b718[m Fix Cors
+[33m3a78007[m Fix modules file
+[33mbf93c14[m first commit for backend
