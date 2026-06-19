@@ -1,62 +1,574 @@
 const LOGO_URL =
   "https://res.cloudinary.com/dsjypyora/image/upload/v1769510490/brown-circle-logo_bm8nhy.png";
 
-// 🎯 PREMIUM HEADER
+// COMMON HEADER
+
 const HEADER = `
-<div style="text-align:center;padding:20px 0;background:linear-gradient(135deg,#111827,#1f2937);">
-  <img src="${LOGO_URL}" style="width:55px;margin-bottom:8px;" />
-  <h2 style="color:#fff;margin:0;font-size:18px;letter-spacing:1px;">
-    Brown Hair Salon
-  </h2>
+
+<div style="background:#F4F7FA; 
+padding:32px 25px 24px;
+text-align:center;
+border-bottom:1px solid #E5E7EB;">
+
+<img
+src="${LOGO_URL}"
+alt="Brown Hair The Unisex Salon"
+style="width:72px;
+height:72px;
+object-fit:contain;
+margin-bottom:14px;"/>
+
+
+<p style="margin:0;
+font-size:14px;
+font-weight:400;
+color:#9CA3AF;
+letter-spacing:.5px;">
+
+Style • Groom • Shine
+
+</p>
+
+
+
+<h1 style="margin:10px 0 4px;
+font-size:28px;
+font-weight:600;
+line-height:1.3;
+color:#2D2D2D;">
+
+Brown Hair The Unisex Salon
+
+</h1>
+
+
+<p style="margin:0;
+font-size:14px;
+font-weight:400;
+color:#6B7280;">
+
+Nagpur
+
+</p>
+
 </div>
+
 `;
 
-// 🎯 PREMIUM FOOTER
+// COMMON FOOTER
+
 const FOOTER = `
-<div style="margin-top:25px;padding:15px;background:#f9fafb;text-align:center;font-size:12px;color:#777;">
-  📞 +91-9623345713 <br/>
-  🌐 www.brownhairsalon.com <br/>
-  📍 Nagpur
-  <p style="margin-top:10px;font-size:11px;color:#aaa;">
-    You received this email because you booked with us.
-  </p>
+<div style="padding:30px 25px;
+background:#ffffff;
+border-top:1px solid #E5E7EB;">
+
+
+<div style="
+
+text-align:center;
+
+margin-bottom:22px;">
+
+
+<span style="display:inline-block;
+margin:0 20px;">
+
+<p style="margin:0;
+font-size:12px;
+font-weight:600;
+letter-spacing:1px;
+color:#9CA3AF;">
+
+CALL US
+
+</p>
+
+
+<p style="margin-top:6px;
+font-size:14px;
+color:#374151;">
+
++91 9623345713
+
+</p>
+
+</span>
+
+
+
+
+<span style="
+display:inline-block;
+margin:0 20px;
+">
+
+<p style="margin:0;
+font-size:12px;
+font-weight:600;
+letter-spacing:1px;
+color:#9CA3AF;">
+
+EMAIL US
+
+</p>
+
+
+<p style="margin-top:6px;
+font-size:14px;
+color:#374151;">
+
+info@brownhairsalon.com
+
+</p>
+
+</span>
+
+
+
+
+<span style="
+display:inline-block;
+margin:0 20px;
+">
+
+<p style="
+margin:0;
+font-size:12px;
+font-weight:600;
+letter-spacing:1px;
+color:#9CA3AF;
+">
+
+OPENING HOURS
+
+</p>
+
+
+<p style="
+margin-top:6px;
+font-size:14px;
+color:#374151;
+">
+
+10:00 AM – 9:00 PM
+
+</p>
+
+</span>
+
+
+</div>
+
+
+
+
+<div style="
+text-align:center;
+padding-top:18px;
+border-top:1px solid #F3F4F6;
+">
+
+
+<p style="
+margin:0;
+font-size:14px;
+color:#4B5563;
+">
+
+Thank you for choosing
+
+
+<strong>
+
+Brown Hair The Unisex Salon
+
+</strong>
+
+
+</p>
+
+
+
+<p style="
+margin-top:8px;
+font-size:12px;
+line-height:1.7;
+color:#9CA3AF;
+">
+
+Krida Square, Nagpur
+
+
+<br>
+
+
+We look forward to welcoming you again.
+
+
+</p>
+
+
+
+<p style="
+margin-top:18px;
+font-size:11px;
+color:#C0C4CC;
+">
+
+This is an automated message from
+Brown Hair The Unisex Salon.
+Please do not reply to this email.
+</p>
+</div>
 </div>
 `;
 
-// ======== CUSTOMER CONFIRMED ======== //
+// CUSTOMER APPOINTMENT CONFIRMATION
 
 exports.customerConfirmedTemplate = (data) => `
+
 <!DOCTYPE html>
 <html>
-<body style="margin:0;background:#f4f6f8;font-family:Arial;">
 
-<div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.08);">
+<body style="
+margin:0;
+padding:25px;
+background:#F4F7FA;
+font-family:Arial,sans-serif;
+">
+
+<div style="
+max-width:650px;
+margin:auto;
+background:#ffffff;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 4px 18px rgba(0,0,0,.05);
+">
 
 ${HEADER}
 
-<div style="padding:25px;">
-  <h3 style="text-align:center;color:#16a34a;">🎉 Appointment Confirmed</h3>
 
-  <p>Hello <b>${data.name}</b>,</p>
+<div style="padding:40px;">
 
-  <p>Your booking is successfully confirmed.</p>
 
-  <div style="background:#f9fafb;padding:15px;border-radius:10px;">
-    <p><b>Service:</b> ${data.category}</p>
-    <p><b>Date:</b> ${data.date}</p>
-    <p><b>Time:</b> ${data.time}</p>
-    <p><b>Artist:</b> ${data.artist}</p>
-    <p><b>Status:</b> <span style="color:#16a34a;font-weight:bold;">Confirmed</span></p>
-  </div>
+<h1 style="
+margin:0;
+text-align:center;
+font-size:32px;
+font-weight:600;
+color:#374151;
+">
 
-  <p style="margin-top:15px;">Please arrive 10 minutes early.</p>
+Appointment Confirmed
+
+</h1>
+
+
+
+<p style="
+margin-top:25px;
+font-size:15px;
+line-height:1.8;
+color:#4B5563;
+">
+
+Hello <strong>${data.name}</strong>,
+
+
+<br><br>
+
+
+Your appointment has been successfully scheduled.
+
+
+<br>
+
+
+We look forward to welcoming you at
+
+
+<strong>
+
+Brown Hair The Unisex Salon, Nagpur
+
+</strong>.
+
+
+</p>
+
+
+
+
+<table width="100%"
+cellpadding="0"
+cellspacing="0"
+style="margin-top:35px;">
+
+
+<tr>
+
+
+<td width="45%"
+align="center"
+valign="top">
+
+
+<p style="
+margin:0;
+font-size:12px;
+letter-spacing:1px;
+color:#9CA3AF;
+">
+
+YOUR APPOINTMENT
+
+</p>
+
+
+
+<h2 style="
+margin-top:20px;
+font-size:22px;
+font-weight:600;
+color:#374151;
+">
+
+${data.date}
+
+</h2>
+
+
+
+<p style="
+margin-top:10px;
+font-size:16px;
+color:#6B7280;
+">
+
+at
+
+
+<strong>
+
+${data.time}
+
+</strong>
+
+</p>
+
+
+
+
+<a href="#"
+
+style="
+display:inline-block;
+margin-top:22px;
+padding:12px 24px;
+background:#7C9DFF;
+border-radius:30px;
+text-decoration:none;
+font-size:14px;
+font-weight:500;
+color:white;
+">
+
+Add To Calendar
+
+</a>
+
+
+</td>
+
+
+
+
+
+<td width="10%"></td>
+
+
+
+
+
+<td width="45%"
+valign="top">
+
+
+<p style="
+margin:0;
+font-size:12px;
+letter-spacing:1px;
+color:#9CA3AF;
+">
+
+APPOINTMENT DETAILS
+
+
+</p>
+
+
+
+
+<p style="
+margin-top:20px;
+font-size:15px;
+color:#4B5563;
+">
+
+✂ Service
+
+
+<br>
+
+
+<strong>
+
+${data.category}
+
+</strong>
+
+</p>
+
+
+
+
+<p style="
+margin-top:18px;
+font-size:15px;
+color:#4B5563;
+">
+
+👨 Artist
+
+
+<br>
+
+
+<strong>
+
+${data.artist}
+
+</strong>
+
+</p>
+
+
+
+
+<p style="
+margin-top:18px;
+font-size:15px;
+color:#4B5563;
+">
+
+🟢 Status
+
+
+<br>
+
+
+<span style="
+
+display:inline-block;
+
+margin-top:5px;
+
+padding:6px 14px;
+
+background:#ECFDF3;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+color:#16A34A;
+
+">
+
+Confirmed
+
+
+</span>
+
+</p>
+
+
+
+</td>
+
+
+
+</tr>
+
+</table>
+
+
+
+
+
+<div style="
+
+margin-top:35px;
+
+padding:18px 20px;
+
+background:#F9FAFB;
+
+border-radius:18px;
+
+">
+
+
+<p style="
+margin:0;
+font-size:14px;
+color:#4B5563;
+">
+
+🔔 Please arrive 10 minutes before your scheduled appointment.
+
+
+</p>
+
+
+
+<p style="
+margin-top:10px;
+font-size:14px;
+line-height:1.7;
+color:#6B7280;
+">
+
+Need to reschedule or cancel?
+
+
+Please contact us as soon as possible.
+
+
+</p>
+
 
 </div>
+
+
+
+</div>
+
+
 
 ${FOOTER}
+
+
+
 </div>
+
 </body>
+
 </html>
+
 `;
 
 // ======== ADMIN NEW BOOKING ======== //
