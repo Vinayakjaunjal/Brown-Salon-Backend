@@ -233,53 +233,101 @@ exports.customerConfirmedTemplate = (data) => `
 <body style="
 margin:0;
 padding:25px;
-background:#F4F7FA;
+background:#F6F7FB;
 font-family:Arial,sans-serif;
 ">
 
 <div style="
-max-width:650px;
+max-width:700px;
 margin:auto;
 background:#ffffff;
-border-radius:28px;
+border-radius:30px;
 overflow:hidden;
-box-shadow:0 4px 18px rgba(0,0,0,.05);
+box-shadow:0 6px 20px rgba(0,0,0,.04);
 ">
+
 
 ${HEADER}
 
 
-<div style="padding:40px;">
+
+<!-- HERO -->
+
+
+<div style="
+
+padding:40px;
+
+background:#EEF4FF;
+
+">
 
 
 <h1 style="
+
 margin:0;
-text-align:center;
-font-size:32px;
-font-weight:600;
-color:#374151;
+
+font-size:52px;
+
+font-weight:300;
+
+line-height:1.1;
+
+color:#2F3A4A;
+
 ">
 
-Appointment Confirmed
+Appointment
+
+
+<br>
+
+
+<span style="
+
+color:#7C9DFF;
+
+font-weight:600;
+
+">
+
+Confirmed
+
+</span>
+
 
 </h1>
 
 
 
 <p style="
-margin-top:25px;
-font-size:15px;
+
+margin-top:30px;
+
+font-size:16px;
+
 line-height:1.8;
+
 color:#4B5563;
+
 ">
 
-Hello <strong>${data.name}</strong>,
+Hello
+
+
+<strong>
+
+${data.name}
+
+</strong>,
+
 
 
 <br><br>
 
 
 Your appointment has been successfully scheduled.
+
 
 
 <br>
@@ -290,48 +338,96 @@ We look forward to welcoming you at
 
 <strong>
 
-Brown Hair The Unisex Salon, Nagpur
+Brown Hair The Unisex Salon,
+Nagpur
+
 
 </strong>.
+
 
 
 </p>
 
 
 
+</div>
 
-<table width="100%"
-cellpadding="0"
-cellspacing="0"
-style="margin-top:35px;">
+
+
+
+
+
+<!-- FLOATING CARD -->
+
+
+<div style="
+
+padding:0 30px;
+
+margin-top:-35px;
+
+">
+
+
+<div style="
+
+background:white;
+
+border-radius:28px;
+
+padding:35px;
+
+box-shadow:0 6px 20px rgba(0,0,0,.05);
+
+border:1px solid #EDF1F5;
+
+">
+
+
+<table width="100%">
 
 
 <tr>
 
 
+
 <td width="45%"
+
 align="center"
-valign="top">
+
+valign="top"
+
+>
 
 
 <p style="
-margin:0;
-font-size:12px;
+
+font-size:13px;
+
 letter-spacing:1px;
+
 color:#9CA3AF;
+
 ">
 
 YOUR APPOINTMENT
+
 
 </p>
 
 
 
+
 <h2 style="
-margin-top:20px;
-font-size:22px;
-font-weight:600;
-color:#374151;
+
+font-size:34px;
+
+font-weight:500;
+
+color:#2F3A4A;
+
+margin-top:25px;
+
 ">
 
 ${data.date}
@@ -340,22 +436,21 @@ ${data.date}
 
 
 
+
 <p style="
-margin-top:10px;
-font-size:16px;
-color:#6B7280;
+
+font-size:24px;
+
+margin-top:15px;
+
+color:#7C9DFF;
+
 ">
-
-at
-
-
-<strong>
 
 ${data.time}
 
-</strong>
-
 </p>
+
 
 
 
@@ -363,23 +458,35 @@ ${data.time}
 <a href="#"
 
 style="
+
 display:inline-block;
-margin-top:22px;
-padding:12px 24px;
-background:#7C9DFF;
+
+padding:14px 28px;
+
+margin-top:25px;
+
 border-radius:30px;
+
+background:#7C9DFF;
+
 text-decoration:none;
-font-size:14px;
-font-weight:500;
+
 color:white;
+
+font-size:14px;
+
 ">
 
-Add To Calendar
+ADD TO CALENDAR
+
 
 </a>
 
 
+
+
 </td>
+
 
 
 
@@ -391,15 +498,25 @@ Add To Calendar
 
 
 
+
 <td width="45%"
-valign="top">
+
+
+valign="top"
+
+
+>
+
 
 
 <p style="
-margin:0;
-font-size:12px;
+
+font-size:13px;
+
 letter-spacing:1px;
+
 color:#9CA3AF;
+
 ">
 
 APPOINTMENT DETAILS
@@ -410,88 +527,102 @@ APPOINTMENT DETAILS
 
 
 
+
 <p style="
-margin-top:20px;
-font-size:15px;
+
+margin-top:25px;
+
+font-size:16px;
+
 color:#4B5563;
+
 ">
 
 ✂ Service
 
 
-<br>
 
+<span style="float:right;">
 
-<strong>
 
 ${data.category}
 
-</strong>
+
+</span>
+
 
 </p>
 
 
 
 
+
 <p style="
-margin-top:18px;
-font-size:15px;
+
+margin-top:25px;
+
+font-size:16px;
+
 color:#4B5563;
+
 ">
 
 👨 Artist
 
 
-<br>
 
+<span style="float:right;">
 
-<strong>
 
 ${data.artist}
 
-</strong>
+
+</span>
+
 
 </p>
 
 
 
 
+
 <p style="
-margin-top:18px;
-font-size:15px;
+
+margin-top:25px;
+
+font-size:16px;
+
 color:#4B5563;
+
 ">
 
 🟢 Status
 
 
-<br>
-
 
 <span style="
 
-display:inline-block;
-
-margin-top:5px;
-
-padding:6px 14px;
+float:right;
 
 background:#ECFDF3;
 
-border-radius:30px;
+padding:7px 14px;
+
+border-radius:50px;
+
+color:#16A34A;
 
 font-size:13px;
 
 font-weight:600;
 
-color:#16A34A;
-
 ">
 
-Confirmed
+CONFIRMED
 
 
 </span>
+
 
 </p>
 
@@ -503,46 +634,102 @@ Confirmed
 
 </tr>
 
+
 </table>
 
 
 
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- REMINDER -->
 
 
 <div style="
 
-margin-top:35px;
+padding:30px;
 
-padding:18px 20px;
+">
+
+
+<div style="
 
 background:#F9FAFB;
+
+border:1px solid #EEF2F7;
+
+padding:22px;
 
 border-radius:18px;
 
 ">
 
 
+<table width="100%">
+
+
+<tr>
+
+
+
+<td width="50%">
+
+
 <p style="
+
 margin:0;
-font-size:14px;
+
+font-size:15px;
+
 color:#4B5563;
+
 ">
 
-🔔 Please arrive 10 minutes before your scheduled appointment.
+🔔 Please arrive
+
+
+10 minutes before your appointment.
 
 
 </p>
 
 
 
+</td>
+
+
+
+
+
+<td width="50%">
+
+
 <p style="
-margin-top:10px;
-font-size:14px;
+
+margin:0;
+
+font-size:15px;
+
 line-height:1.7;
+
 color:#6B7280;
+
 ">
 
+
 Need to reschedule or cancel?
+
+
+
+<br>
+
 
 
 Please contact us as soon as possible.
@@ -551,11 +738,26 @@ Please contact us as soon as possible.
 </p>
 
 
+
+</td>
+
+
+
+</tr>
+
+
+
+</table>
+
+
+
+
 </div>
 
 
 
 </div>
+
 
 
 
@@ -563,9 +765,12 @@ ${FOOTER}
 
 
 
+
 </div>
 
+
 </body>
+
 
 </html>
 
