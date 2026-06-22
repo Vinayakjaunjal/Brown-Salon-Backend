@@ -151,11 +151,22 @@ function heroBanner(titleLine1, titleLine2Gold, subtitle, bodyLine) {
 // ─────────────────────────────────────────────
 //  HELPER: Details row inside card
 // ─────────────────────────────────────────────
-function detailRow(icon, label, value, highlight) {
-  const val = highlight
-    ? `<span style="display:inline-block;background:#dcfce7;color:#16a34a;font-weight:700;font-size:12px;
-         padding:3px 12px;border-radius:20px;letter-spacing:1px;">✔ ${value}</span>`
-    : `<span style="color:#1a1a1a;font-size:14px;">${value}</span>`;
+// STATUS BADGE PALETTE
+const STATUS_STYLES = {
+  CONFIRMED: { bg: "#e8f5e9", color: "#2e7d32" }, // Soft Green
+  CANCELLED: { bg: "#fdecea", color: "#c62828" }, // Soft Red
+  COMPLETED: { bg: "#fff8e1", color: "#b45309" }, // Soft Gold Amber
+  "NO SHOW": { bg: "#f3f3f3", color: "#757575" }, // Soft Gray
+};
+
+function detailRow(icon, label, value, highlightStatus) {
+  let val;
+  if (highlightStatus) {
+    const s = STATUS_STYLES[highlightStatus] || STATUS_STYLES["CONFIRMED"];
+    val = `<span style="display:inline-block;background:${s.bg};color:${s.color};font-weight:700;font-size:12px;padding:4px 14px;border-radius:20px;letter-spacing:1px;">✔ ${value}</span>`;
+  } else {
+    val = `<span style="color:#1a1a1a;font-size:14px;">${value}</span>`;
+  }
   return `
 <tr>
   <td style="padding:8px 0;width:28px;vertical-align:middle;font-size:16px;">${icon}</td>
@@ -219,7 +230,7 @@ ${heroBanner("Appointment", "Confirmed!", `Hello ${data.name},`, "Your appointme
             ${detailRow("✂️", "Service", data.category)}
             ${detailRow("👤", "Artist", data.artist)}
             ${detailRow("₹", "Amount", data.amount || "₹150")}
-            ${detailRow("✔", "Status", "CONFIRMED", true)}
+            ${detailRow("✔", "Status", "CONFIRMED", "CONFIRMED")}
           </table>
         </td>
       </tr>
@@ -300,7 +311,7 @@ ${heroBanner("Appointment", "Reminder!", `Hello ${data.name},`, "Your appointmen
             ${detailRow("👤", "Artist", data.artist || "–")}
             ${detailRow("📅", "Date", formatDate(data.date))}
             ${detailRow("⏱", "Time", data.time)}
-            ${detailRow("✔", "Status", "CONFIRMED", true)}
+            ${detailRow("✔", "Status", "CONFIRMED", "CONFIRMED")}
           </table>
           <div style="margin-top:20px;">
             <a href="https://brownsalon.co.in/profile"
@@ -327,8 +338,8 @@ exports.statusUpdateTemplate = (data, status) => {
       line2Gold: "Completed!",
       subtitle: `Hello ${data.name},`,
       body: "We hope you enjoyed your experience. It was a pleasure serving you!",
-      badgeColor: "#16a34a",
-      badgeBg: "#dcfce7",
+      badgeColor: "#b45309",
+      badgeBg: "#fff8e1",
       badgeLabel: "COMPLETED",
       extra: `
         <div style="margin-top:22px;text-align:center;">
@@ -346,8 +357,8 @@ exports.statusUpdateTemplate = (data, status) => {
       line2Gold: "Cancelled",
       subtitle: `Hello ${data.name},`,
       body: "Your appointment has been cancelled. If this was not intended, feel free to reschedule anytime.",
-      badgeColor: "#dc2626",
-      badgeBg: "#fee2e2",
+      badgeColor: "#c62828",
+      badgeBg: "#fdecea",
       badgeLabel: "CANCELLED",
       extra: `<div style="margin-top:18px;font-size:13px;color:#555;font-family:Arial,sans-serif;">You can book a new appointment anytime at your convenience.</div>`,
     },
@@ -356,8 +367,8 @@ exports.statusUpdateTemplate = (data, status) => {
       line2Gold: "Missed",
       subtitle: `Hello ${data.name},`,
       body: "We noticed you couldn't make it today. We completely understand — plans change!",
-      badgeColor: "#ca8a04",
-      badgeBg: "#fef9c3",
+      badgeColor: "#757575",
+      badgeBg: "#f3f3f3",
       badgeLabel: "NO SHOW",
       extra: `<div style="margin-top:18px;font-size:13px;color:#555;font-family:Arial,sans-serif;">We look forward to welcoming you soon. Book again at your convenience.</div>`,
     },
@@ -366,8 +377,8 @@ exports.statusUpdateTemplate = (data, status) => {
       line2Gold: "Confirmed!",
       subtitle: `Hello ${data.name},`,
       body: "Your appointment has been successfully confirmed.",
-      badgeColor: "#16a34a",
-      badgeBg: "#dcfce7",
+      badgeColor: "#2e7d32",
+      badgeBg: "#e8f5e9",
       badgeLabel: "CONFIRMED",
       extra: "",
     },
@@ -401,7 +412,7 @@ ${heroBanner(c.line1, c.line2Gold, c.subtitle, c.body)}
             ${detailRow("✂️", "Service", data.category)}
             ${detailRow("👤", "Artist", data.artist)}
             ${detailRow("₹", "Amount", data.amount || "₹150")}
-            ${detailRow("✔", "Status", c.badgeLabel, true)}
+            ${detailRow("✔", "Status", c.badgeLabel, c.badgeLabel)}
           </table>
         </td>
       </tr>
