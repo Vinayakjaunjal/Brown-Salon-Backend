@@ -10,6 +10,38 @@ const SALON_HERO_IMG =
   "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80";
 
 // ─────────────────────────────────────────────
+//  DATE FORMATTER  → "Friday, 19 June 2026"
+// ─────────────────────────────────────────────
+function formatDate(dateInput) {
+  const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  if (isNaN(d)) return dateInput; // fallback if already a string
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+// ─────────────────────────────────────────────
 //  COMMON HEADER  (logo + tagline, white bg)
 // ─────────────────────────────────────────────
 const HEADER = `
@@ -172,7 +204,7 @@ ${heroBanner("Appointment", "Confirmed!", `Hello ${data.name},`, "Your appointme
         <td width="45%" style="padding:30px 24px 28px;border-right:1px solid #f0ede6;text-align:center;vertical-align:top;">
           <div style="width:52px;height:52px;background:#f5f0e8;border-radius:50%;margin:0 auto 14px;text-align:center;line-height:52px;font-size:22px;">📅</div>
           <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:#c9a84c;margin-bottom:12px;font-family:Arial,sans-serif;">YOUR APPOINTMENT</div>
-          <div style="font-size:20px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${data.date}</div>
+          <div style="font-size:20px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${formatDate(data.date)}</div>
           <div style="font-size:16px;color:#c9a84c;font-weight:600;margin-top:4px;font-family:Arial,sans-serif;">at ${data.time}</div>
           <div style="margin-top:22px;">
             <a href="#" style="display:inline-block;background:#c9a84c;color:#fff;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1px;font-family:Arial,sans-serif;">
@@ -186,7 +218,6 @@ ${heroBanner("Appointment", "Confirmed!", `Hello ${data.name},`, "Your appointme
           <table cellpadding="0" cellspacing="0">
             ${detailRow("✂️", "Service", data.category)}
             ${detailRow("👤", "Artist", data.artist)}
-            ${detailRow("⏱", "Duration", data.duration || "60 Minutes")}
             ${detailRow("₹", "Amount", data.amount || "₹150")}
             ${detailRow("✔", "Status", "CONFIRMED", true)}
           </table>
@@ -227,7 +258,7 @@ ${heroBanner("New Booking", "Received!", "A new appointment has been made.", "Re
           <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:#c9a84c;margin-bottom:14px;border-bottom:1px solid #c9a84c;padding-bottom:10px;font-family:Arial,sans-serif;">BOOKING DETAILS</div>
           <table cellpadding="0" cellspacing="0">
             ${detailRow("✂️", "Service", data.category)}
-            ${detailRow("📅", "Date", data.date)}
+            ${detailRow("📅", "Date", formatDate(data.date))}
             ${detailRow("⏱", "Time", data.time)}
             ${detailRow("👤", "Artist", data.artist)}
             ${detailRow("₹", "Amount", data.amount || "₹150")}
@@ -256,7 +287,7 @@ ${heroBanner("Appointment", "Reminder!", `Hello ${data.name},`, "Your appointmen
         <td width="45%" style="padding:30px 24px 28px;border-right:1px solid #f0ede6;text-align:center;vertical-align:top;">
           <div style="width:52px;height:52px;background:#f5f0e8;border-radius:50%;margin:0 auto 14px;text-align:center;line-height:52px;font-size:22px;">⏰</div>
           <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:#c9a84c;margin-bottom:12px;font-family:Arial,sans-serif;">YOUR APPOINTMENT</div>
-          <div style="font-size:19px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${data.date}</div>
+          <div style="font-size:19px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${formatDate(data.date)}</div>
           <div style="font-size:16px;color:#c9a84c;font-weight:600;margin-top:4px;font-family:Arial,sans-serif;">at ${data.time}</div>
           <div style="margin-top:18px;background:#fffbeb;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;font-family:Arial,sans-serif;">
             ✔ Arrive <strong>10 mins early</strong>
@@ -267,7 +298,7 @@ ${heroBanner("Appointment", "Reminder!", `Hello ${data.name},`, "Your appointmen
           <table cellpadding="0" cellspacing="0">
             ${detailRow("✂️", "Service", data.category || data.serviceName)}
             ${detailRow("👤", "Artist", data.artist || "–")}
-            ${detailRow("📅", "Date", data.date)}
+            ${detailRow("📅", "Date", formatDate(data.date))}
             ${detailRow("⏱", "Time", data.time)}
             ${detailRow("✔", "Status", "CONFIRMED", true)}
           </table>
@@ -355,7 +386,7 @@ ${heroBanner(c.line1, c.line2Gold, c.subtitle, c.body)}
         <td width="45%" style="padding:30px 24px 28px;border-right:1px solid #f0ede6;text-align:center;vertical-align:top;">
           <div style="width:52px;height:52px;background:#f5f0e8;border-radius:50%;margin:0 auto 14px;text-align:center;line-height:52px;font-size:22px;">📅</div>
           <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:#c9a84c;margin-bottom:12px;font-family:Arial,sans-serif;">YOUR APPOINTMENT</div>
-          <div style="font-size:19px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${data.date}</div>
+          <div style="font-size:19px;font-weight:700;color:#1a1a1a;font-family:Georgia,serif;line-height:1.3;">${formatDate(data.date)}</div>
           <div style="font-size:16px;color:#c9a84c;font-weight:600;margin-top:4px;font-family:Arial,sans-serif;">at ${data.time}</div>
           <div style="margin-top:16px;">
             <div style="display:inline-block;background:${c.badgeBg};color:${c.badgeColor};font-weight:700;font-size:12px;padding:8px 18px;border-radius:20px;letter-spacing:1px;font-family:Arial,sans-serif;">
@@ -369,7 +400,6 @@ ${heroBanner(c.line1, c.line2Gold, c.subtitle, c.body)}
           <table cellpadding="0" cellspacing="0">
             ${detailRow("✂️", "Service", data.category)}
             ${detailRow("👤", "Artist", data.artist)}
-            ${detailRow("⏱", "Duration", data.duration || "60 Minutes")}
             ${detailRow("₹", "Amount", data.amount || "₹150")}
             ${detailRow("✔", "Status", c.badgeLabel, true)}
           </table>
